@@ -1,0 +1,273 @@
+%  use 
+%    xdvi -paper usr formulae &
+%  and 
+%    dvips -t landscape formulae
+%  to preview and make PostScript
+%,
+
+\documentclass[letterpaper,landscape,10pt]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{units}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+%\usepackage{lastpage}
+%\usepackage{pxfonts}
+\usepackage{helvet}
+\usepackage{mathptmx}
+%\usepackage{times}
+%\usepackage{type1cm}
+%\usepackage[T1]{fontenc}
+%\usepackage[charter]{mathdesign}
+%\usepackage{fouriernc}
+
+\usepackage{hhline}
+\usepackage{colortbl}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{ifpdf}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{setspace}
+\singlespacing
+
+\input{header.tex}
+
+\geometry{top=.85in,left=.32in,right=.32in,bottom=.30in}
+\title{Math \& Physics Equation Sheet}
+\author{Justin Lanfranchi}
+\date{\today}
+\renewcommand{\baselinestretch}{.5}
+
+\ifpdf
+	\usepackage[pdftex]{graphicx}
+	\usepackage
+	[colorlinks=true,
+	linkcolor=webgreen, %defined below
+	filecolor=webbrown, %defined below
+	citecolor=webgreen, %defined below
+	%------------- Doc Info ---------------------------------
+	pdftitle={Math and Physics Equation Sheet},
+	pdfauthor={Justin Lanfranchi},
+	pdfsubject={},
+	pdfkeywords={},
+	%------------ Doc View ----------------------------------
+	bookmarksopen=true,
+	pdfpagemode=UseOutlines]{hyperref}
+	\definecolor{webgreen}{rgb}{0,0,0}
+	\definecolor{webbrown}{rgb}{0,0,0}
+\else
+	\usepackage{graphicx}
+\fi
+
+%\fancyhf{}
+\setlength{\headheight}{8pt}
+\setlength{\headsep}{5pt}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\footrulewidth}{0pt}
+\lhead{}
+%\chead{\fontsize{8}{1}{}\selectfont\textsc{Math \& Physics Equation Sheet}  \hfill \today \hfill Justin Lanfranchi{\hfill}Page \thepage\ of \pageref{LastPage}{}}
+\chead{\fontsize{8}{1}{}\selectfont\textsc{Math \& Physics Equation Sheet}  \hfill \today \hfill Justin Lanfranchi{\hfill}Page \thepage}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\maketitle
+
+\pagestyle{fancyplain}
+\newif\iftechexplorer\techexplorerfalse
+%\markright{ \hrulefill\ equation sheet, Page }
+
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}}
+\makeatother
+
+
+% Alter some LaTeX defaults for better treatment of figures:
+% See p.105 of "TeX Unbound" for suggested values.
+% See pp. 199-200 of Lamport's "LaTeX" book for details.
+%   General parameters, for ALL pages:
+\renewcommand{\topfraction}{1.0}    % max fraction of floats at top
+\renewcommand{\bottomfraction}{1.0} % max fraction of floats at bottom
+%   Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{8}
+\setcounter{bottomnumber}{8}
+\setcounter{totalnumber}{16}     % 2 may work better
+\setcounter{dbltopnumber}{16}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9} % fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}  % allow minimal text w. figs
+%   Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.7}  % require fuller float pages
+% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.7}   % require fuller float pages
+
+% remember to use [htp] or [htpb] for placement
+
+
+%\titleformat{\section}[display]
+%	{\scshape\normalsize\filcenter}
+%	{\thesection}
+%	{1pt}
+%	{\titlerule \vspace{2pt} \small}
+%	[\vspace{1pt} \titlerule]
+
+\titleformat{\section}[display]
+	{\scshape\Huge\filcenter}
+	{\thesection}
+	{1pt}
+	{\vspace{3pt} \small}
+	[\vspace{3pt}]
+ 
+\titleformat{\subsection}{\small\sffamily}{\thesubsection}{1em}{}{}{}
+\titleformat{\subsubsection}{\scriptsize\slshape}{\thesubsubsection}{1em}{}{}{}
+
+\titlespacing*{\section}      {-8pt}{2.5pt}{2.5pt}
+\titlespacing*{\subsection}   {-6pt}{5pt}{2pt}
+\titlespacing*{\subsubsection}{-4pt}{5pt}{2pt}
+
+%\titlespacing*{\section}      {-0pt}{2.5pt}{2.5pt}
+%\titlespacing*{\subsection}   {-0pt}{5pt}{2pt}
+%\titlespacing*{\subsubsection}{-0pt}{5pt}{2pt}
+
+
+\newenvironment{mydescription}
+{\begin{description}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{-1pt}}
+{\end{description}}
+
+%WAS:
+%\newenvironment{myitemize}
+%{\begin{itemize}
+%	\setlength{\itemsep}{-1pt}
+%	\setlength{\parskip}{0pt}
+%	\setlength{\parsep}{0pt}}
+%{\end{itemize}}
+
+%NOW:
+\newenvironment{myitemize}
+{\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}}
+{\end{itemize}}
+
+\newenvironment{titemize}
+{\begin{list}{$\cdot$}{\leftmargin=1em}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}}
+{\end{list}}
+
+\newenvironment{litemize}
+{\begin{list}{$\cdot$}{\leftmargin=6em\labelwidth=6em}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}}
+{\end{list}}
+
+\begin{document}{
+\raggedright
+
+%\fontsize{5}{1}\usefont{OT1}{cmr}{m}{n}\selectfont
+%\fontsize{7}{1}\selectfont %\usefont{times}\selectfont
+
+\fontsize{6}{1}\selectfont %\usefont{T1}{times}\selectfont
+%\fontsize{10}{1}\selectfont %\usefont{T1}{times}\selectfont
+
+\begin{multicols}{4}
+%\begin{multicols}{3}
+
+%\twocolumn
+
+%\setlength{\premulticols}{18pt}
+%\setlength{\postmulticols}{18pt}
+%\setlength{\multicolsep}{18pt}
+%\setlength{\columnsep}{18pt}
+\iftechexplorer
+  \maketitle
+\fi
+
+
+\section*{Quantum Mechanics}
+  \subsubsection*{de Broglie}
+	\hspace{5pt}for ALL things, light \& matter: \\
+	\hspace{15pt}$\lambda=h/p$ \\
+	\hspace{15pt}$\nu=E/h$
+  \subsubsection*{Schr\"odinger Equation}
+	$$ \hat{H} \ket{\Psi} = i\hbar\pd{}{t}\ket{\Psi} $$
+  	%$$ i\hbar\frac{\partial\Psi}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2\Psi}{\partial x^2} + V\Psi$$
+	$$ \hat{H} \ket{\psi(\xi)\phi(t)} = E_n \ket{\psi(\xi)} e^{iE_nt/\hbar} $$
+	\hspace{5pt}this is non-relativistic\\
+	\hspace{5pt}$\Psi$ can be complex-valued\\
+	\hspace{5pt}boundary conditions lead to energy quantization\\
+	\hspace{5pt}not derived (initially) but fit to reality\\
+  \subsubsection*{Time Independent Schr\"odinger Equation}
+  	$$ -\frac{\hbar^2}{2m}\frac{\partial^2\psi}{\partial x^2} + V\psi = E\psi$$
+  %\subsubsection*{Quantum Things}
+  %	\begin{titemize}
+  %	  \item Mass, charge, etc.
+  %    \item Energy (cf. blackbody radiation, photoelectric effect,
+  %  	  photons \& other fields)
+  %    \item Interference -- 2 slit experiment
+  %	  \item Tunneling (radioactive decay, electronic devices)
+  %	  \item Zero-point motion, i.e., electron never at 0 energy 
+  %	  \item Diffraction in matter
+  %	\end{titemize}
+  \subsubsection*{Operators}
+  	\hspace{5pt}\textbf{position}: $\langle x \rangle$: $\hat{x} = x$ \\
+	\hspace{5pt}\textbf{function of position}: $\langle f(\bm{r})\rangle$: $\hat{f}=f(\bm{r})$ \\
+	\hspace{5pt}\textbf{velocity}: $\langle v\rangle=\frac{d\langle x \rangle}{dt}$: $\hat{\bm{v}} = \frac{\hbar}{im}\bm\nabla$ \\
+	\hspace{10pt}Note that this is velocity of expectation, but gives velocity in QM\\
+	\hspace{5pt}\textbf{momentum}: $m\frac{d\langle x \rangle}{dt}$: $\hat{\bm{p}}=\frac{\hbar}{i}\bm\nabla$ \\
+	\hspace{5pt}\textbf{energy}: $\hat H = -\frac{\hbar^2}{2m}\bm\nabla^2+V$ \\
+	\hspace{5pt}\textbf{exchange}: $\hat P_{12} \equiv \hat P_{12} \ket{\Psi(\xi_1,\xi_2)} = \ket{\Psi(\xi_2,\xi_1)}$; eig. val's are $\pm 1\forall\ket{\Psi}$ known to man; $\hat P_{12}\left( \hat P_{12} \ket{\Psi(\xi_1,\xi_2)} \right) = \ket{\Psi(\xi_1,\xi_2)}$ \\
+	\hspace{5pt}\textbf{parity}: $\hat \Pi \equiv \hat \Pi \ket{\Psi(\vec{r})} = \ket{\Psi(-\vec{r})}$; eig. val's are $\pm 1$ if they $\exists$ since $\hat\Pi \left(\hat\Pi \ket{\Psi(\vec{r})}\right) = \ket{\Psi(\vec{r})}$ \\
+	\hspace{10pt} $\hat\Pi(Y_{lm}) = (-1)^l Y_{lm}$
+	\hspace{5pt}\textbf{raising/lowering SHO}:\\
+	\hspace{5pt}\textbf{ang. momentum}: $\bm{J} = $ \\
+
+  \subsection*{Many-particle systems}
+  	\subsubsection*{General solution}
+	\subsubsection*{Special case: no external forces}
+	\subsubsection*{Identical particles}
+	\subsubsection*{Slater determinant}
+	\subsubsection*{Pauli exclusion principle}
+	\subsubsection*{Fermi energy -- bosonic system, non-interacting}
+	\subsubsection*{Fermi energy -- fermionic system, non-interacting}
+  \subsection*{Angular momentum and spin}
+  	\subsubsection*{Spin paramagnetic resonance}
+		\hspace{5pt} Rabi frequency \\
+		\hspace{5pt} Rotating-wave approximation \\
+  	\subsubsection*{Angular momentum / spin operators}
+		\hspace{5pt} Operators \\
+		\hspace{5pt} Addition \\
+		\hspace{5pt} Clebsch-Gordon coefficients \\
+		\hspace{5pt} Uncoupled representation \\
+		\hspace{5pt} Coupled representation \\
+		\hspace{5pt} Imposing conservation of angular momentum, parity, idential particle (anti-) symmetry on reaction \\
+  \subsection*{Hydrogen-like atoms}
+	\hspace{5pt} $H^0 = -\frac{\hbar^2}{2m_e}\nabla^2-\frac{kZe^2}{r}$ \\
+	\hspace{5pt} $H^{rel}=-\frac{p^4}{8m_e^3c^2}$ \\
+	\hspace{5pt} $H^{s-o}=\frac{kZe^2}{2m_e^2c^2}\frac{1}{r^3}\vec{s}\cdot\vec{L}$ \\
+	\hspace{5pt} $H^{hf}=\frac{Ze^2}{4\pi\varepsilon_0}\frac{g_N}{4M_Nm_ec^2}\left( \frac{3\vec{r}(\vec{r}\cdot\vec{I})}{r^5} + \frac{8\pi}{3}\vec{I}\delta(\vec{r}) \right)\cdot(\vec{L}+2\vec{s})$ \\
+	\hspace{5pt} 
+	\hspace{5pt} 
+
+
+
+\end{multicols}
+}\end{document}
