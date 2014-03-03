@@ -17,7 +17,7 @@
 \usepackage{titlesec}
 \usepackage[section]{placeins}
 \usepackage{color}
-\usepackage[labelfont={normal,bf},font=normal]{caption}
+\usepackage[labelfont={footnotesize,bf},font=footnotesize]{caption}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1200,stretch=20,shrink=20]{microtype}
 \usepackage[colorlinks=true,
 			linkcolor=webgreen, %defined below
@@ -90,7 +90,7 @@ where $\bm{r}_i$ is the vector pointing \textit{from} the charge \textit{to} the
 	\includegraphics[keepaspectratio=true,width=1.50in]{./coordinate_system_single_charge.pdf}
     \caption{Geometry for analyzing the E-field due to a point charge.
 			 Note that only the vector $\bm r_i$ and its associated unit vector, $\bm{\hat r}_i$, enter into the RHS of Eqn.~\ref{eqn:coulomb0}.
-			 That's where the \textit{physics} is in this picture!}
+			 That's where the \textit{physics} is in this picture, which has nothing to do with where you chose your origin!}
     \label{fig:coord_coulomb}
   %\end{minipage}
   \hrule%{2in}{0.5pt}
@@ -106,6 +106,7 @@ We could beat around the bush here, but there's a very nice mathematical tool fo
 \end{equation}
 (Refer to Fig.~\ref{fig:coord_coulomb_distr} for the geometry involved in this equation.)
 Unfortunately this can be a prohibitively tricky integral to work out since each different bit of charge $\text d Q$ has a different $\bm r_i$ and so a different (up to) 3-component vector $\bm{\hat r}_i$ that must be summed over.
+Certain problems are still tractable with Coulomb's law, but this is typically because symmetry in the charge distribution (or simply low-dimensionality, such as in a line of charge) leads to the cancellation of all but one vector component of $\bm E$.
 
 %-------------------------------------------------------------------------------
 \begin{figure}[htb]
@@ -116,10 +117,10 @@ Unfortunately this can be a prohibitively tricky integral to work out since each
   %\begin{minipage}[l]{1.0\columnwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,width=2.50in]{./coordinate_system.pdf}
-    \caption{Geometry for analyzing the E-field due to a charge distribution.
-	The \textit{physics} for each little bit of the sum is due to the differential charge element $\text d Q$ and the vector $\bm r_i$ pointing from $\text d Q$ to the point $\bm r$ where you're trying to find the E-field; hence, these are what show up \textit{explicitly} in the integrand of Eqn.~\ref{eqn:coulomb1}.
+    \caption{{Geometry for analyzing the E-field due to a charge distribution.
+	The \textit{physics} for each little bit of the sum is due to the differential charge element $\text d Q$ and the vector $\bm r_i$ pointing from $\text d Q$ to the point $\bm r$ where you're trying to find the E-field; hence, these quantities are what show up {explicitly} in the integrand of Eqn.~\ref{eqn:coulomb1}.
 	The integral is taken over all of the charge distribution, so the coordinates that make up $\bm r'$ show up when we break $\text d Q$ down and we get a purely geometrical part ($\text d x'\,\text d y'$ in plane-Cartesian coordinates).
-	So $\bm r'$ is the variable of integration (and so also shows up in the limits of integration), as can be seen in Eqn.~\ref{eqn:coulomb2}.}
+	So $\bm r'$ is the variable of integration (and so also shows up in the limits of integration), as can be seen in Eqn.~\ref{eqn:coulomb2}.}}
     \label{fig:coord_coulomb_distr}
   %\end{minipage}
   \hrule%{2in}{0.5pt}
@@ -155,9 +156,9 @@ Of course all confusion is avoided when you draw a picture of your differential 
   \vspace{10pt}
   %\begin{minipage}[l]{1.0\columnwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,width=2.1in]{./plane_polar_dr.pdf}
+	\includegraphics[keepaspectratio=true,width=1.6in]{./plane_polar_dr.pdf}
     \caption{Geometry for finding a differential ``volume'' element in 2D using plane-polar coordinates.
-	         Tweak the vector's coordinate $\theta'$ (angle) a little (by an a\ointmount $\text d \theta'$), and the vector rotates a bit, tracing out an arc of length $r'\,\text d\theta'$.
+	         Tweak the vector's coordinate $\theta'$ (angle) a little (by an amount $\text d \theta'$), and the vector rotates a bit, tracing out an arc of length $r'\,\text d\theta'$.
 	         Tweak the vector's coordinate $r'$ (magnitude) a little (by an amount $\text d r'$), and the vector gets longer, tracing out the length $\text d r'$.
 			 Multiply these, and the differential ``volume'' element has an area $\left( r'\,\text d \theta' \right)\text d r'$.}
     \label{fig:plane_polar_dr}
@@ -178,23 +179,89 @@ Surrounding this charge with a closed surface, and using Coulomb's Law along wit
 \end{align}
 This is true no matter \textit{where} the charge is inside the surface or what \textit{shape} or \textit{size} the surface has, so long as it's a \textbf{closed surface that contains the charge}.
 
-It is not hard to imagine, just like with Coulomb's law, that this can generalize to a distribution of charges.
-For a given closed surface, the electric flux through it will just be the total of all the bits of charge contained within the surface, scaled by the factor $1/\epsilon_0$.
-And when I say ``within a closed surface,'' \textit{that means volume!}
-So 
+It is not hard to imagine, just like with Coulomb's law, that this can generalize from a single point charge to a continuous distribution of charge.
+For a given closed surface, the electric flux through it will just be the total of all the bits of charge contained within the surface scaled by the factor $1/\epsilon_0$.
+And a closed surface that lives in 3D encloses a \textit{volume} there, so the basic generalization of Eqn.~\ref{eqn:gauss_charge2},
 \begin{align}
-  \oint\limits_{\substack{\mathrm{closed}\\\mathrm{surf}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}Q_{\mathrm{encl}}. \label{eqn:gauss1}\\
-  \intertext{can be written with $Q_\text{encl}$ in terms of an integral over the differential bits of charge in the distribution,}
-  \oint\limits_{\substack{\mathrm{closed}\\\mathrm{surf}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}\iiint\limits_\mathrm{encl. vol} \text d Q. \label{eqn:gauss2}
+  \oint\limits_{\substack{\mathrm{closed}\\\mathrm{surf}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}Q_{\mathrm{encl}},
+  \label{eqn:gauss1}
+\end{align}
+can also be written with $Q_\text{encl}$ in terms of a volume integral over the differential bits of charge enclosed by the surface,
+\begin{align}
+  \oint\limits_{\substack{\mathrm{closed}\\\mathrm{surf}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}\iiint\limits_\mathrm{encl. vol} \text d Q.
+  \label{eqn:gauss2}
 \end{align}
 
-With Coulomb's law, you probably just integrated over all the charge.
-With Gauss's law, you get to choose a surface over which to integrate---but the key is to choose a surface which leaves one component of one part of $\bm E$ on one surface (or some symmetric component of E) as the only unknown.
-This is necessary because you only have one equation (Eqn.~\ref{eqn:gauss2}) to work with.
-So you really need to take advantage of the charge distribution's symmetry in order for Gauss's law to be useful.
+With Coulomb's law, you probably just integrated over all the charge (or the unique part of a symmetrical distribution).
+With Gauss's law, you get to choose a surface over which to integrate---but the key is to choose a surface that leaves just one component $\bm E$ (or some symmetric components of E) as \textit{constant} and the \textit{only unknown} on the surface you've chosen.
+This is necessary because you only have one equation (Eqn.~\ref{eqn:gauss1}/\ref{eqn:gauss2}) to work with.
+If a charge distribution doesn't exhibit symmetry, or if you choose a Gaussian surface that doesn't take advantage of a distribution's symmetry, you won't end up with just one part of $\bm E$ as unknown, and the integral on the LHS of (\ref{eqn:gauss1}) can't be done.
 
 For example: With a spherically-symmetric charge distribution, choosing a spherical surface centered at the charge distribution's center leaves only the magnitude of the E-field's radial component unknown.
+The E-field vectors \textit{only} point radially (due to symmetry), so there's nothing else about $\bm E$ to figure out.
+See Fig.~\ref{fig:spherical_gaussian_surfaces} for more details on choosing a Gaussian surface for spherically symmetric charge distribution.
+Recall that $\text d Q = \rho \, \text d V$, and in spherical coordinates, $\rho=\rho(r,\theta,\phi)\equiv\rho_{r,\theta\,\phi}$ and $\text d V = \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)$ in general, so Eqn.~\ref{eqn:gauss2} becomes
+\begin{align*}
+  \oint\limits_{\substack{\mathrm{spherical}\\\mathrm{shell}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}\iiint\limits_{\substack{\mathrm{inside}\\ \mathrm{sphere}}} \text d Q \\
+  \oint\limits_{\theta,\phi} (\|\bm E\|\bm{\hat r}) \cdot (\mathrm{d}A\,\bm{\hat r}) &= \frac{1}{\epsilon_0}\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)\\
+  \oint\limits_{\theta,\phi} \|\bm E\|\,\mathrm{d}A &= \frac{1}{\epsilon_0}\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, r^2 \, \sin\theta \, \text d r  \, \text d \theta \, \text d\phi\\
+  \|\bm E\|\ \oint\limits_{\theta,\phi} {d}A &= \frac{1}{\epsilon_0}\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, r^2 \, \sin\theta \, \text d r  \, \text d \theta \, \text d\phi\\
+  \|\bm E\|\ (4\pi r^2) &= \frac{1}{\epsilon_0}\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, r^2 \, \sin\theta \, \text d r  \, \text d \theta \, \text d\phi\\
+  \|\bm E\|\ &= \frac{1}{4\pi\epsilon_0 r^2}\iiint\limits_{r,\theta,\phi}  \rho_{r,\theta,\phi} \, r^2 \, \sin\theta \, \text d r  \, \text d \theta \, \text d\phi.
+\end{align*}
+The last integral on the right might look intimidating, but it will almost always simplify (in this class at least).
+If $\rho=\text{const}$, then $\rho_{r,\theta\,\phi}=\rho=\text{const}$ and
+\begin{align*}
+	\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, r^2 \, \sin\theta \, \text d r  \, \text d \theta \, \text d\phi &= \iiint\limits_{r,\theta,\phi} \rho \; \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi) \\
+	 &= \rho \underbrace{\iiint\limits_{r,\theta,\phi} \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)}_\text{volume\,of\,a\,sphere} \\
+	 &= \rho \times \left( \frac{4}{3}\pi r^3 \right).
+\end{align*}
+Even easier than starting with the expression in spherical coordinates, though, you could start way back at $\text d Q = \rho \, \text d V$, and
+\begin{align*}
+  \int_{\text{vol}} \rho\;\text d V &= \rho \int_{\text{vol}} \text d V \\
+  &= \rho\times (\text{vol}) \\
+  &= \rho \times \left( \frac{4}{3}\pi r^3 \right).
+\end{align*}
 
+Let's do the same thing, but with the charge density a function of only the radial distance, $r$: $\rho(r,\theta\,\phi)=\rho(r)\equiv\rho_r$.
+First, recognize that $\rho$ is constant everywhere on a spherical shell (since $r$ is constant on the shell), so your differential volume element can be a spherical shell with just a tiny (differential) bit of thickness: $\text dr$. So $\text dQ = \rho(r)\,\text d V$ still, but now $\text dV=(\text{surface\,area\,of\,shell})\cdot \text dr = 4\pi r^2\,\text d r$.
+
+\begin{align*}
+	\iiint\limits_{r,\theta,\phi} \cdots &= \iiint\limits_{r,\theta,\phi} \rho \; \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi) \\
+	&= \rho \underbrace{\iiint\limits_{r,\theta,\phi} \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)}_\text{volume\,of\,a\,sphere} \\
+	 &= \rho \times \left( \text{volume\,of\,a\,sphere} \right) \\
+	 &= \rho \times \left( \frac{4}{3}\pi r^3 \right)
+\end{align*}
+
+%-------------------------------------------------------------------------------
+\begin{figure}[htb]
+  \centering
+  \vspace{5pt} 
+  %\hrule%{2in}{0.5pt}
+  \vspace{10pt}
+  %\begin{minipage}[l]{1.0\columnwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,width=1.0\columnwidth]{./spherical_gaussian_surfaces.pdf}
+	\caption{Choices of Gaussian surface for spherically-symmetric charge distribution.\\
+	\textbf{(a) No enclosed charge and \textit{not} capturing symmetry.}
+	There is no net flux in or out, but there is non-zero E-field on its surface; $\Phi_E=0$ does \textit{not necessarily imply} $\bm E=0$ for any Gaussian surface you've chosen!\\
+	\textbf{(b) Some enclosed charge and \textit{not} capturing symmetry.}
+	Net flux is non-zero and E-field is non-zero on the surface, but $\|\bm E\|$ varies across the surface and the direction $\bm E$ points is not just radial with respect to the surface.
+	Therefore, you cannot find the E-field using this surface and Gauss's law.\\
+	\textbf{(c) May enclose charge and captures symmetry} (shares center with charge distribution).
+	If charge doesn't exist inside this surface, the net flux is zero \textit{and} the E-field is zero---due to the symmetry.
+	If there \textit{is} charge inside, the symmetry indicates that $\bm E$ has the same magnitude everywhere on the surface and is pointing radially outward, parallel with the surface normals \textit{everywhere} on the surface.
+	Only one value, $\|\bm E\|=\mathrm{const}$, is unknown, and Gauss's law gives you that.\\
+	\textbf{(d) Encloses charge and captures symmetry.}
+	Analysis is the same as in (b), but surface area and so $\|\bm E\|$ will have different values as in that case.}
+    \label{fig:spherical_gaussian_surfaces}
+  %\end{minipage}
+  \hrule%{2in}{0.5pt}
+\vspace{10pt}
+\end{figure}
+%\FloatBarrier
+%-------------------------------------------------------------------------------
+%Inspect the equation $\Phi_E=\oint \bm E \cdot \text d\bm A$ carefully for what it means, and note that when you integrate over the whole surface, there can be cancellation of flux going \textit{into} with flux going \textit{out of} the surface.
 
 %in order to solve for $\bm E$, you need just one unknown in the end.
 %over which the and the (which shows up this doesn't 
