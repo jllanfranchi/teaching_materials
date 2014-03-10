@@ -1,0 +1,94 @@
+\documentclass[10pt,letterpaper,twoside]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[pdftex]{graphicx}     % Add some packages for figures. Read epslatex.pdf on ctan.tug.org
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{outlines}
+\usepackage{calligra}
+%\usepackage{pxfonts}
+%\usepackage[T1]{fontenc}{pxfonts}
+%\usepackage{newpxtext,newpxmath}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage[section]{placeins}
+\usepackage{color}
+\usepackage[labelfont={footnotesize,bf},font=footnotesize]{caption}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1200,stretch=20,shrink=20]{microtype}
+\usepackage[colorlinks=true,
+			linkcolor=webgreen, %defined below
+			filecolor=webbrown, %defined below
+			citecolor=webgreen, %defined below
+			%------------- Doc Info ---------------------------------
+			pdftitle={Simple error propagation},
+			pdfauthor={J. L. Lanfranchi},
+			pdfsubject={},
+			pdfkeywords={},
+			%------------ Doc View ----------------------------------
+			bookmarksopen=true,
+			pdfpagemode=UseOutlines]{hyperref}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webbrown}{rgb}{0,0,0.8}
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\setlength{\floatsep}{0.01in}
+\setlength{\textfloatsep}{0.01in}
+\setlength{\topmargin}{0.01in}
+\setlength{\topskip}{0.01in}
+\setlength{\textheight}{0.1in}
+\setlength{\intextsep}{3pt}
+
+\newcommand{\sectionlinetwo}[2]{%
+  \nointerlineskip \vspace{.5\baselineskip}\hspace{\fill}
+  {\resizebox{0.5\linewidth}{1.2ex}
+    {\pgfornament[color = #1]{#2}
+    }}%
+    \hspace{\fill}
+    \par\nointerlineskip \vspace{.5\baselineskip}
+  }
+
+\author{J. L. Lanfranchi}
+%\email{jll1062@phys.psu.edu}
+\title{Simple error propagation}
+\geometry{top=0.70in,left=0.70in,right=0.70in,bottom=0.70in}
+\begin{document} 
+\twocolumn
+\maketitle
+If you have some function of the variables $x$, $y$, $z$, etc.: $f(x,y,z,\dots)$, and you want to find the error in $f$ given measurements of $x$, $y$, $z$, \dots with values $x_0$, $y_0$, $z_0$ and errors $\sigma_x$, $\sigma_y$, $\sigma_z$, respectively, then use the following:
+\begin{align}
+  \sigma_f^2 = \left(\frac{\partial f}{\partial x}\Big|_{x=x_0}\right)^2\sigma_x^2 +
+  \left(\frac{\partial f}{\partial y}\Big|_{y=y_0}\right)^2\sigma_y^2 + \\
+   + \left(\frac{\partial f}{\partial z}\Big|_{z=z_0}\right)^2\sigma_z^2 + \cdots \notag
+\end{align}
+It's easy to find the rule now for simple situations, such as $f(x,y)=x\cdot y$:
+\begin{align}
+  \sigma_f &= \sqrt{\left(\frac{\partial f}{\partial x}\right)^2\sigma_x^2 +
+  \left(\frac{\partial f}{\partial y}\right)^2\sigma_y^2 } \\
+   &= \sqrt{y^2\sigma_x^2 + x^2\sigma_y^2 } \\
+   &= \sqrt{x^2y^2\left( \frac{\sigma_x^2}{x^2} + \frac{\sigma_y^2}{x^2}\right) }\\
+   &= xy \sqrt{ \frac{\sigma_x^2}{x^2} + \frac{\sigma_y^2}{x^2} }
+\end{align}
+(Of course you can use the forms in Eqn.~3, 4, or 5, whichever is most convenient, since they're all the same.)
+
+Work through the following examples yourselves, and if you have any questions about these, I can answer on Friday before or after recitation.
+\begin{itemize}
+  \item[(1)] $f(x,y)=2x-3y$ \\
+  \item[(2)] $f(x)=3x^2$ \\
+  \item[(3)] $f(x)=1/x$ \\
+  \item[(3)] $f(x,y)=x/y$ 
+\end{itemize}
+
+So that just leaves propagating error for linear fits (linear regression). 
+
+\end{document}
