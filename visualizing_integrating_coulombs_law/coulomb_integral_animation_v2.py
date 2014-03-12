@@ -167,8 +167,8 @@ R = 10
 Z = 30
 
 #PERSP = "XSIDE"
-#PERSP = "YSIDE"
-PERSP = "ISO"
+PERSP = "YSIDE"
+#PERSP = "ISO"
 
 plt.close(1)
 if PERSP == "XSIDE":
@@ -282,11 +282,11 @@ ax.add_collection3d(diffVolEl)
 if PERSP == "XSIDE":
     ax.text(0, ymax+1, 0, r"$y$", ha='center', va='center')
     ax.text(0, 0, zmax+1, r"$z$", ha='center', va='center')
-    rp_txt = ax.text(0, 2, Z*.75, r"$\vec{\mathscr{r}}_i=\vec r - \vec r_i$",
+    rp_txt = ax.text(0, 2, Z*.75, r"$\vec{{r}}_i=\vec r - \vec r'_i$",
                      size=16, ha='left', va='center', color='b', zorder=1)
     Ei_txt = ax.text(0,0,40, r"$\vec {E_i}$",
                      size=16, ha='center', va='center', color=Ei_color, zorder=1)
-    ri_txt = ax.text(2, 1, -1, r"$\vec r_i$",
+    ri_txt = ax.text(2, 1, -1, r"$\vec r'_i$",
                      size=16, ha='left', va='center', color='k', zorder=1)
     r_txt = ax.text(0, 2, Z/2, r"$\vec r$",
                    size=16, ha='center', va='center', color='r', zorder=1)
@@ -294,11 +294,11 @@ if PERSP == "XSIDE":
 if PERSP == "YSIDE":
     ax.text(xmax+1, 0, 0, r"$x$", ha='center', va='center')
     ax.text(0, 0, zmax+1, r"$z$", ha='center', va='center')
-    rp_txt = ax.text(2, 2, Z*.75, r"$\vec{\mathscr{r}}_i=\vec r - \vec r_i$",
+    rp_txt = ax.text(2, 2, Z*.75, r"$\vec{{r}}_i=\vec r - \vec r'_i$",
                      size=16, ha='left', va='center', color='b', zorder=1)
     Ei_txt = ax.text(0,0,40, r"$\vec {E_i}$",
                      size=16, ha='center', va='center', color=Ei_color, zorder=1)
-    ri_txt = ax.text(2, 1, -2, r"$\vec r_i$",
+    ri_txt = ax.text(2, 1, -2, r"$\vec r'_i$",
                      size=16, ha='left', va='center', color='k', zorder=1)
     r_txt = ax.text(2, 2, Z/2, r"$\vec r$",
                    size=16, ha='center', va='center', color='r', zorder=1)
@@ -307,11 +307,11 @@ if PERSP == "ISO":
     ax.text(xmax+1, 1, -1, r"$x$", ha='center', va='center')
     ax.text(0, ymax+1, 0, r"$y$", ha='center', va='center')
     ax.text(0, 0, zmax+1, r"$z$", ha='center', va='center')
-    rp_txt = ax.text(0, 2, Z*.75, r"$\vec{\mathscr{r}}_i=\vec r - \vec r_i$",
+    rp_txt = ax.text(0, 2, Z*.75, r"$\vec{{r}}_i=\vec r - \vec r'_i$",
                      size=16, ha='left', va='center', color='b', zorder=1)
     Ei_txt = ax.text(0,0,40, r"$\vec {E_i}$",
                      size=16, ha='center', va='center', color=Ei_color, zorder=1)
-    ri_txt = ax.text(2, 1, -1, r"$\vec r_i$",
+    ri_txt = ax.text(2, 1, -1, r"$\vec r'_i$",
                      size=16, ha='left', va='center', color='k', zorder=1)
     r_txt = ax.text(0, 2, Z/2, r"$\vec r$",
                    size=16, ha='center', va='center', color='r', zorder=1)
@@ -319,20 +319,20 @@ if PERSP == "ISO":
     eqn = ax.text(-10,5,30, 
                   r"$\mathrm{At\,each\,step:}$"
                   +"\n"
-                  +r"$\vec{E_i}(\vec{r}) = k\,\frac{\rho(\vec r_i)\,\mathrm{d}V_i}{\|\|\vec{\mathscr{r}}_i\|\|^2}"
-                  + r"\,\hat{\mathscr{r}}_i$",
+                  +r"$\vec{E_i}(\vec{r}) = k\,\frac{\rho(\vec r'_i)\,\mathrm{d}V'_i}{\|\|\vec{{r}}_i\|\|^2}"
+                  + r"\,\hat{{r}}_i$",
                   size=16)
     eqn2 = ax.text(10,5,-15,
                    r"$\mathrm{Overall\,operation:}$"
                    +"\n"
                    +r"$\vec{E}(\vec{r}) = "
-                   +r"\int_{z_i=-R}^{R}\,"
-                   +r"\int_{\varrho_i=0}^{\sqrt{R^2-z^2}}"
-                   +r"\int_{\theta_i=0}^{2\pi}"
-                   +r"\left( k\,\frac{\rho(\vec r_i)\,"
-                   +r"\left( \varrho_i \mathrm{d}\theta_i\,\mathrm{d}\varrho_i\,\mathrm{d}z_i \right)"
-                   +r"}{\|\|\vec{\mathscr{r}}_i\|\|^2}"
-                   + r"\,\hat{\mathscr{r}}_i\right)$",
+                   +r"\int_{z'_i=-R}^{R}\,"
+                   +r"\int_{\varrho'_i=0}^{\sqrt{R^2-z_i'^2}}"
+                   +r"\int_{\theta'_i=0}^{2\pi}"
+                   +r"\left( k\,\frac{\rho(\vec r'_i)\,"
+                   +r"\left( \varrho'_i \mathrm{d}\theta'_i\,\mathrm{d}\varrho'_i\,\mathrm{d}z'_i \right)"
+                   +r"}{\|\|\vec{{r}}_i\|\|^2}"
+                   + r"\,\hat{{r}}_i\right)$",
                    ha="center", va="top",
                    size=14)
 
@@ -413,8 +413,9 @@ for z in np.linspace(-R+zStep/2, R-zStep/2, nZSamp):
                 fig.savefig("frames/frame"+format(n, '04d')+"_yside.png")
             #plt.show()
             n += 1
-            #time.sleep(0.1)
-            #if n >= 50:
+            time.sleep(0.1)
+            #if n == 77:
+            #    fig.savefig("frames/frame"+format(n, '04d')+"_iso.pdf")
             #    raise Exception()
 
 # <codecell>
@@ -478,4 +479,48 @@ show()
 polys = polVolDiffelVerts(0.2,0,0, 0.2,2*pi,0.1, 0.05)
 c.set_verts(polys)
 draw()
+
+# <codecell>
+
+%%sh?
+
+# <codecell>
+
+#!/bin/bash
+
+OLDPWD=`pwd`
+cd frames
+
+mkdir cropped
+
+for fname in `ls frame*_*side.png | sed 's/\.png//g'`;do
+	#echo $fname
+	convert ${fname}.png -crop 450x550+190+125 cropped/${fname}_crop.png
+done
+
+for fname in `ls frame*_iso.png | sed 's/\.png//g'`;do
+    #echo ${fname}
+    convert ${fname}.png -crop 500x550+175+25 cropped/${fname}_crop.png
+done
+
+for fname in `ls frame*_iso.png | sed 's/_iso\.png//g'`;do 
+    #echo $fname
+    convert cropped/${fname}_iso_crop.png cropped/${fname}_xside_crop.png cropped/${fname}_yside_crop.png +append cropped/${fname}_cat.png
+    #convert cropped/${fname}_iso_crop.png cropped/${fname}_xside_crop.png +append cropped/${fname}_cat.png
+done
+
+# #mencoder mf://frames/cropped/frame*_cat.png -lavcopts vcodec=msmpeg4v2:vbitrate=1200 -mf type=png:fps=20 -ovc lavc -o visual_coulomb_integral.avi
+mencoder mf://cropped/frame*_cat.png -lavcopts vcodec=msmpeg4v2:vbitrate=1200 -mf type=png:fps=20 -ovc lavc -o visual_coulomb_integral.avi
+
+cd $OLDPWD
+
+# <codecell>
+
+pwd
+
+# <codecell>
+
+
+# <codecell>
+
 

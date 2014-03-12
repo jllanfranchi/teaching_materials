@@ -76,7 +76,11 @@ Something for another write-up, but note that the math I describe here generaliz
 
 \section{Coulomb's Law}
 First, starting with Coulomb's law for a point charge, we see that the point charge causes an electric field $\bm E_i$ at some point in space $\bm r$ according to the equation
-\begin{equation}\bm{E_i(r)} = k\frac{Q}{r_i^2}\bm{\hat r}_i \label{eqn:coulomb0}\end{equation}
+%-------------------------------------------------------------------------------
+\begin{equation}
+  \bm{E_i(r)} = k\frac{Q}{r_i^2}\bm{\hat r}_i \label{eqn:coulomb0}
+\end{equation}
+%-------------------------------------------------------------------------------
 where $\bm{r}_i$ is the vector pointing \textit{from} the charge \textit{to} the point in space at which we're finding the E-field (see Fig.~\ref{fig:coord_coulomb}).
 
 %-------------------------------------------------------------------------------
@@ -169,6 +173,38 @@ Of course all confusion is avoided when you draw a picture of your differential 
 %\FloatBarrier
 %-------------------------------------------------------------------------------
 
+I've put together a little animation of a 3D example for finding the E-field at a point outside a spherical distribution of charge.
+This animation can be found at \url{http://www.personal.psu.edu/jll1062/Documents/visual_coulomb_integral.avi} and one frame from it can be seen in Fig.~\ref{fig:visual_coulomb_integral}.
+There, while the charge distribution is spherical (outer radius $R$), the coordinates used are \textit{cylindrical}.
+The cylindrical coordinate system for the vector $\bm r'$ is $(\varrho',\theta',z')$ where $\varrho'$ is the distance from the $z$-axis, $\theta'$ is the angle from the $x$-axis to the projection of the vector onto the $x$-$y$-plane, and $z'$ is the usual $z$-coordinate, the distance from the $x$-$y$-plane to the coordinate.
+In this coordinate system, the differential volume element is $\mathrm d V'=(\varrho_i'\,\mathrm d\theta')(\mathrm d r')(\mathrm d z')$.
+This choice is not necessary, but lends itself to a cylindrically-symmetric charge distribution.
+If that is the case, then an entire disk, with outer radius $\sqrt{R^2-z'^2}$, can be treated all at once and the integral simplifies to one dimension:
+$$ \bm E(\bm r) = \int\limits_{z'=-R}^{R} \left(\text{E-field due to disk at position }z'\right) \,\mathrm d z' $$
+
+%-------------------------------------------------------------------------------
+\begin{figure}[htb]
+  \centering
+  \vspace{5pt}
+  \hrule%{2in}{0.5pt}
+  \vspace{10pt}
+  %\begin{minipage}[l]{1.0\columnwidth}
+	\centering
+	\includegraphics[clip=true,trim=1.9in 0.5in 1.4in 0.7in,keepaspectratio=true,width=\columnwidth]{./frame0077_iso.pdf}
+	\caption{Frame 77 from animation of performing a 3-dimensional integral to find the E-field at a point $\vec r$ due to a sphere of charge, using polar coordinates.
+	Full animation can be found \href{http://www.personal.psu.edu/jll1062/Documents/visual_coulomb_integral.avi}{here}.}
+    %\caption{Geometry for finding a differential ``volume'' element in 2D using plane-polar coordinates.
+	%         Tweak the vector's coordinate $\theta'$ (angle) a little (by an amount $\text d \theta'$), and the vector rotates a bit, tracing out an arc of length $r'\,\text d\theta'$.
+	%         Tweak the vector's coordinate $r'$ (magnitude) a little (by an amount $\text d r'$), and the vector gets longer, tracing out the length $\text d r'$.
+	%		 Multiply these, and the differential ``volume'' element has an area $\left( r'\,\text d \theta' \right)\text d r'$.}
+    \label{fig:visual_coulomb_integral}
+  %\end{minipage}
+  \hrule%{2in}{0.5pt}
+\vspace{5pt}
+\end{figure}
+%\FloatBarrier
+%-------------------------------------------------------------------------------
+
 \section{Gauss's law}
 If a charge $Q$ is present somewhere in space, it ``produces'' an E-field.
 Surrounding this charge with a closed surface, and using Coulomb's Law along with the divergence theorem from vector calculus, it can be shown that the \textit{total electric flux}, $\Phi_E=\oint\bm E\cdot \text d \bm A$, flowing out through that surface is just $Q/\epsilon_0$:
@@ -200,7 +236,7 @@ If a charge distribution doesn't exhibit symmetry, or if you choose a Gaussian s
 For example: With a spherically-symmetric charge distribution, choosing a spherical surface centered at the charge distribution's center leaves only the magnitude of the E-field's radial component unknown.
 The E-field vectors \textit{only} point radially (due to symmetry), so there's nothing else about $\bm E$ to figure out.
 See Fig.~\ref{fig:spherical_gaussian_surfaces} for more details on choosing a Gaussian surface for spherically symmetric charge distribution.
-Recall that $\text d Q = \rho \, \text d V$, and in spherical coordinates, $\rho=\rho(r,\theta,\phi)\equiv\rho_{r,\theta\,\phi}$ and $\text d V = \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)$ in general, so Eqn.~\ref{eqn:gauss2} becomes
+Recall that $\text d Q = \rho \, \text d V$, and in spherical coordinates, $\rho=\rho(r,\theta,\phi)\equiv\rho_{r,\theta\,\phi}$ (note the alternative notation I'm using where a coordinate in the subscript denotes dependence upon that coordinate) and $\text d V = \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)$ in general, so Eqn.~\ref{eqn:gauss2} becomes
 \begin{align*}
   \oint\limits_{\substack{\mathrm{spherical}\\\mathrm{shell}}} \bm E\cdot \mathrm{d}\bm A &= \frac{1}{\epsilon_0}\iiint\limits_{\substack{\mathrm{inside}\\ \mathrm{sphere}}} \text d Q \\
   \oint\limits_{\theta,\phi} (\|\bm E\|\bm{\hat r}) \cdot (\mathrm{d}A\,\bm{\hat r}) &= \frac{1}{\epsilon_0}\iiint\limits_{r,\theta,\phi} \rho_{r,\theta,\phi} \, \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)\\
@@ -216,22 +252,24 @@ If $\rho=\text{const}$, then $\rho_{r,\theta\,\phi}=\rho=\text{const}$ and
 	 &= \rho \underbrace{\iiint\limits_{r,\theta,\phi} \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)}_\text{volume\,of\,a\,sphere} \\
 	 &= \rho \times \left( \frac{4}{3}\pi r^3 \right).
 \end{align*}
-Even easier than starting with the expression in spherical coordinates, though, you could start way back at $\text d Q = \rho \, \text d V$, and
+
+Even easier than starting with the expression in spherical coordinates, though, you could start way back at $\text d Q = \rho \, \text d V$, and you don't really have to work out \textit{any} integral since the charge density is constant, it'll come out of the integral and you already know the result of that integral (just the volume of the sphere)
 \begin{align*}
   \int_{\text{vol}} \rho\;\text d V &= \rho \int_{\text{vol}} \text d V \\
   &= \rho\times (\text{vol}) \\
   &= \rho \times \left( \frac{4}{3}\pi r^3 \right).
 \end{align*}
 
-Let's do the same thing, but with the charge density a function of only the radial distance, $r$: $\rho(r,\theta\,\phi)=\rho(r)\equiv\rho_r$.
-First, recognize that $\rho$ is constant everywhere on a spherical shell (since $r$ is constant on the shell), so your differential volume element can be a spherical shell with just a tiny (differential) bit of thickness: $\text dr$. So $\text dQ = \rho(r)\,\text d V$ still, but now $\text dV=(\text{surface\,area\,of\,shell})\cdot \text dr = 4\pi r^2\,\text d r$.
-
+Let's do the same thing, but with the charge density a function of the radial distance, $r$, only: $\rho(r,\theta\,\phi)=\rho(r)\equiv\rho_r$.
+First, recognize that $\rho$ is constant everywhere on a spherical shell (since $r$ is constant on the shell), so your differential volume element can be a spherical shell with just a tiny (differential) bit of thickness, $\text dr$.
+So $\text dQ = \rho(r)\,\text d V$, just like before, but now $\text dV=(\text{surface\,area\,of\,shell})\cdot \text dr = 4\pi r^2\,\text d r$.
+The volume integral can be evaluated over just one coordinate, $r$, now, and looks like the following:
+%-------------------------------------------------------------------------------
 \begin{align*}
-	\iiint\limits_{r,\theta,\phi} \cdots &= \iiint\limits_{r,\theta,\phi} \rho \; \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi) \\
-	&= \rho \underbrace{\iiint\limits_{r,\theta,\phi} \text d r  \, (r \, \text d \theta) \, (r \sin\theta\,\text d\phi)}_\text{volume\,of\,a\,sphere} \\
-	 &= \rho \times \left( \text{volume\,of\,a\,sphere} \right) \\
-	 &= \rho \times \left( \frac{4}{3}\pi r^3 \right)
+	\int\limits_{r} \rho(r) \,4\pi r^2\,\text d r
 \end{align*}
+%-------------------------------------------------------------------------------
+which requires no knowledge of how to evaluate a triple integral, since there's no variation in $\rho$ over two of the dimensions.
 
 %-------------------------------------------------------------------------------
 \begin{figure}[htb]
