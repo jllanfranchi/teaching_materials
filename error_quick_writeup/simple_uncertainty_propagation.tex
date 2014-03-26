@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper,twoside]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[pdftex]{graphicx}     % Add some packages for figures. Read epslatex.pdf on ctan.tug.org
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{outlines}
+\usepackage{calligra}
+%\usepackage{pxfonts}
+%\usepackage[T1]{fontenc}{pxfonts}
+%\usepackage{newpxtext,newpxmath}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage[section]{placeins}
+\usepackage{color}
+\usepackage[labelfont={footnotesize,bf},font=footnotesize]{caption}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1200,stretch=20,shrink=20]{microtype}
+\usepackage[colorlinks=true,
+			linkcolor=webgreen, %defined below
+			filecolor=webbrown, %defined below
+			citecolor=webgreen, %defined below
+			%------------- Doc Info ---------------------------------
+			pdftitle={Simple uncertainty propagation},
+			pdfauthor={J. L. Lanfranchi},
+			pdfsubject={},
+			pdfkeywords={},
+			%------------ Doc View ----------------------------------
+			bookmarksopen=true,
+			pdfpagemode=UseOutlines]{hyperref}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webbrown}{rgb}{0,0,0.8}
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\setlength{\floatsep}{0.01in}
+\setlength{\textfloatsep}{0.01in}
+\setlength{\topmargin}{0.01in}
+\setlength{\topskip}{0.01in}
+\setlength{\textheight}{0.1in}
+\setlength{\intextsep}{3pt}
+
+\newcommand{\sectionlinetwo}[2]{%
+  \nointerlineskip \vspace{.5\baselineskip}\hspace{\fill}
+  {\resizebox{0.5\linewidth}{1.2ex}
+    {\pgfornament[color = #1]{#2}
+    }}%
+    \hspace{\fill}
+    \par\nointerlineskip \vspace{.5\baselineskip}
+  }
+
+\author{J. L. Lanfranchi}
+\title{Simple uncertainty propagation}
+\geometry{top=0.70in,left=0.70in,right=0.70in,bottom=0.70in}
+\begin{document} 
+\twocolumn
+\maketitle
+
+\section{Propagation of uncertainty}
+\subsection{Basics}
+If you have some function of the variables $x_1$, $x_2$, $x_2$, etc.: $f(x_1,x_2,x_3,\dots)$, and you want to find the uncertainty in $f$ given the measured values $\hat x_{1}$, $\hat x_{2}$, $\hat x_{3}$, \dots and uncertainties $\sigma_{1}$, $\sigma_{2}$, $\sigma_{3}$, \dots, respectively, which are all \textit{statistically independent} of one another (more on this below), then use
+%-------------------------------------------------------------------------------
+\begin{align}
+  \sigma_f^2 = \left(\frac{\partial f}{\partial x_1}\Big|_{x_1=\hat x_1}\right)^2\sigma_1^2 +
+  \left(\frac{\partial f}{\partial x_2}\Big|_{x_2=\hat x_2}\right)^2\sigma_2^2 + \label{eqn:errorprop}\\
+   + \left(\frac{\partial f}{\partial x_3}\Big|_{x_3=\hat x_3}\right)^2\sigma_3^2 + \cdots \notag
+\end{align}
+%-------------------------------------------------------------------------------
+\subsection{Example}
+It's easy to find the rule now for simple situations, such as $f(x,y)=x y$, as follows
+%-------------------------------------------------------------------------------
+\begin{align}
+  \sigma_f &= \sqrt{\left(\frac{\partial f}{\partial x}\right)^2\sigma_x^2 +
+  \left(\frac{\partial f}{\partial y}\right)^2\sigma_y^2 } \label{eqn:epstep1} \\
+   &= \sqrt{y^2\sigma_x^2 + x^2\sigma_y^2 } \label{eqn:epstep2} \\
+   &= \sqrt{x^2y^2\left( \frac{\sigma_x^2}{x^2} + \frac{\sigma_y^2}{y^2}\right) } \label{eqn:epstep3} \\
+   &= xy \sqrt{ \frac{\sigma_x^2}{x^2} + \frac{\sigma_y^2}{y^2} }. \label{eqn:epstep4}
+\end{align}
+%-------------------------------------------------------------------------------
+Now you just have to plug in the measured values for each of the dependent variables (the measured value of $x$ is called $\hat x$ and the measured value of $y$, $\hat y$) and your estimates for the uncertainties in these measured values, $\sigma_x$ and $\sigma_y$, respectively.
+Of course you can use Eqn.~\ref{eqn:epstep2},~\ref{eqn:epstep3},~or~\ref{eqn:epstep4}, whichever form is most convenient, since they're all equivalent.
+
+%-- TODO: Visualizations!
+%\subsection{Visualizing error propagation}
+%If you're visual like me, you want a picture of what's happening with the above math.
+%Think of the measured variables as Gaussian curves, with a mean and standard deviation.
+
+\subsection{Exercises}
+Find the expression for the uncertainty in $f$ given uncertainties $\sigma_x$ and $\sigma_y$.
+(These simple examples should cover many of the scenarios you'll encounter.)
+%-------------------------------------------------------------------------------
+\begin{itemize}
+  \item[a)] $f(x,y)=2x-3y$ 
+  \item[b)] $f(x)=3x^2$ 
+  \item[c)] $f(x)=1/x$ 
+  \item[d)] $f(x,y)=x/y$ 
+  \item[e)] $f(x)=\log(x)$ 
+\end{itemize}
+%-------------------------------------------------------------------------------
+
+\subsection{Assumption of statistical independence}
+As mentioned above, Eqn.~\ref{eqn:errorprop} only applies to statistically-independent errors.
+There are situations where the uncertainty in one variable is dependent upon that of another to some non-zero degree.
+This requires some modification of the equations, which I'll not discuss here in this ``simple'' treatment.
+
+\subsection{Bias due to nonlinearity}
+Note that there is bias introduced by using Eqn.~\ref{eqn:errorprop} for non-linear functions of the variables (this bias lessens the smaller the uncertainty, but can be quite significant nonetheless), but don't worry about that for this class.
+Just don't forget about this!
+You'll deal with it more at a later stage in your education and in your working life, whatever scientific, engineering, or data-analytic discipline (economics, finance, etc.) you land in.
+
+\section{Linear fit to measurements with uncertainty}
+First, a disclaimer: Once again, the ``real world'' presents many common situations that add complexity to what follows.
+For example, if you want to fit a line to \textit{transformed} data (e.g., the logarithm of the measurements, or the reciprocal of the measurements), then what follows isn't strictly true.\footnote{
+See \url{http://arXiv.org/abs/0706.1062v2} for how to deal with fitting a line to a $\log(y)$ vs. $\log(x)$ plot of data gathered from a power-law process, i.e., $f(x)=1/x^n$.
+Power-law processes are \textit{extremely} common to find in practice.
+}
+
+For now, just use what follows; but again, remember that there's more to the story.
+(And that's what's \textit{fun} about the world: there's always more to discover about it!)
+
+\subsection{Uncertainty in only $y$--values}
+I'm going to start with fitting a line to data with uncertainties in just measurements of the $y$ variable, which I'm now using as the dependent variable (i.e., $y=f(x)$).
+I'm switching to this notation because you're used to thinking about the ``$x$-axis'' and the ``$y$-axis,'' and the equation for a line is commonly written $y=mx+b$.
+
+Note that you generally have uncertainty in \textit{both} independent and dependent variables, although occasionally you don't have uncertainty in the independent variable.
+One example of where this is possible, but not always the case, is in numerical simulations that you might perform on a computer; the input you give is an exact, known value (note that the \textit{output} of a computer simulation is almost never exact due to things like round-off error).
+It is also possible that the relative error in the independent variable is so small that it can be ignored for simple analyses.
+
+
+\subsection{Uncertainty in $x$-- and $y$--values}
+Now I'm going to treat a linear fit to data with uncertainties in both $y$, the dependent variable, \textit{and} $x$, the independent variable (i.e., $y=f(x)$).
+This will most likely be the case for the data you're measuring.
+Also particular to the following analysis, which you have to be careful about, is that it's only valid if the uncertainties are the same for each measurement.
+Uncertainties in $x$ ($\sigma_x$) and $y$ ($\sigma_y$) \textit{can} be different from one another.
+
+
+\subsection{Strategy for using linear fits}
+In order to take advantage of your linear fit, re-write the equation that relates the $y$--variable to the $x$--variable, and group the parameter(s) such that they look like
+%-------------------------------------------------------------------------------
+\begin{equation}
+	y=(\mathrm{slope})\cdot x + (\text{y--intercept}).
+\end{equation}
+%-------------------------------------------------------------------------------
+
+If the parameter appears anywhere where the slope goes, either multiplying or dividing $x$, then you can set the expression multiplying/dividing $x$ equal to the slope of your linear fit, and then solve for the parameter you're looking for.
+Similarly, if the parameter appears in the part of the expression that \textit{adds to} the $x$--term, then set the that expression equal to the $y$--intercept of your linear fit and solve for the parameter you're interested in.
+
+For example, let's look at calculating the resistivity of a wire from the Ohm's Law lab.
+Resistance in a wire with constant cross-section is given by
+%-------------------------------------------------------------------------------
+\begin{equation}
+  R = \rho L / A \label{eqn:linex1}
+\end{equation}
+%-------------------------------------------------------------------------------
+where $\rho$ is the resistivity, $L$ is the length of wire, and $A$ is the cross-sectional area of the wire.
+You took measurements of $R$ at various lengths of wire $L$ and you'll plot $R$ vs. $L$, so re-write Eqn.~\ref{eqn:linex1} in terms of a linear function $R(L)$
+%-------------------------------------------------------------------------------
+\begin{align}
+  R = R(L) &= (\mathrm{slope})\cdot L + (\text{y--intercept}) \\
+  &= \left( \frac{\rho}{A} \right)\cdot L
+\end{align}
+%-------------------------------------------------------------------------------
+Recall that you had a non-zero $y$--intercept for that lab \textit{not} in the resistance vs. wire-length model, but due to a systematic offset to $R$ due to how you measured it, which included the internal resistance of the digital multimeter (DMM) and the resistance of the hook-up wires.
+This can be modeled by modifying the equation above to include this as an additive offset to the resistance measurements:
+%-------------------------------------------------------------------------------
+\begin{align}
+  R = \left( \frac{\rho}{A} \right)\cdot L + \left( R_{\text{DMM}} + R_{\text{hook-up wires}} \right).
+\end{align}
+%-------------------------------------------------------------------------------
+Now to find the resistivity, just set the quantity in parentheses multiplying $L$ equal to the slope from your linear fit, and solve for $\rho$:
+%-------------------------------------------------------------------------------
+\begin{align}
+  \frac{\rho}{A} &= \mathrm{slope}  \\
+  \rho &= A\cdot \mathrm{slope}.
+\end{align}
+%-------------------------------------------------------------------------------
+Save for finding the cross-sectional area, $A$, of the wire, you now have an estimate of resistivity, $\rho$, that takes into account \textit{every data point} you used for your linear fit.
+
+\end{document}
