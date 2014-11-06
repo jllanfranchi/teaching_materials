@@ -24,7 +24,7 @@
 			filecolor=webbrown, %defined below
 			citecolor=webgreen, %defined below
 			%------------- Doc Info ---------------------------------
-			pdftitle={Simple uncertainty propagation},
+			pdftitle={Simple uncertainty propagation and linear fits to uncertain measurements},
 			pdfauthor={J. L. Lanfranchi},
 			pdfsubject={},
 			pdfkeywords={},
@@ -59,7 +59,7 @@
   }
 
 \author{J. L. Lanfranchi}
-\title{Simple uncertainty propagation}
+\title{Simple uncertainty propagation and linear fits to uncertain measurements}
 \geometry{top=0.70in,left=0.70in,right=0.70in,bottom=0.70in}
 \begin{document} 
 \twocolumn
@@ -123,18 +123,41 @@ For example, if you want to fit a line to \textit{transformed} data (e.g., the l
 See \url{http://arXiv.org/abs/0706.1062v2} for how to deal with fitting a line to a $\log(y)$ vs. $\log(x)$ plot of data gathered from a power-law process, i.e., $f(x)=1/x^n$.
 Power-law processes are \textit{extremely} common to find in practice.
 }
+Non-normally-distributed errors further complicate the analysis.
 
-For now, just use what follows; but again, remember that there's more to the story.
+For now, just use what follows; just remember that there's more to the story.
 (And that's what's \textit{fun} about the world: there's always more to discover about it!)
 
 \subsection{Uncertainty in only $y$--values}
-I'm going to start with fitting a line to data with uncertainties in just measurements of the $y$ variable, which I'm now using as the dependent variable (i.e., $y=f(x)$).
+I'm going to start with fitting a line to data with uncertainties only in the $y$ measurements, which I'm now using as the dependent variable (i.e., $y=f(x)$).
 I'm switching to this notation because you're used to thinking about the ``$x$-axis'' and the ``$y$-axis,'' and the equation for a line is commonly written $y=mx+b$.
 
-Note that you generally have uncertainty in \textit{both} independent and dependent variables, although occasionally you don't have uncertainty in the independent variable.
-One example of where this is possible, but not always the case, is in numerical simulations that you might perform on a computer; the input you give is an exact, known value (note that the \textit{output} of a computer simulation is almost never exact due to things like round-off error).
+Note that you generally have uncertainty in \textit{both} independent and dependent variables, although occasionally you don't have uncertainty (or it's relatively insignificant) in the independent variable.
+One example of where it is possible to see no error in the independent variable is in numerical simulations that you might perform on a computer; the input you give is an exact, known value (note that the \textit{output} of a computer simulation is almost never exact due to things like round-off error).
 It is also possible that the relative error in the independent variable is so small that it can be ignored for simple analyses.
 
+For $N$ measurements numbered from $i=1$ to $i=N$ with errors in the measured dependent variable $\sigma_i$, define the following intermediate quantities
+%-------------------------------------------------------------------------------
+\begin{align}
+  S      &\equiv \sum_{i=1}^{N} \frac{1}{\sigma_i^2} \\
+  S_x    &\equiv \sum_{i=1}^{N}\frac{x_i}{\sigma_i^2} \\
+  S_y    &\equiv \sum_{i=1}^N \frac{y_i}{\sigma_i^2} \\
+  t_i    &\equiv \frac{1}{\sigma_i}\left( x_i - \frac{S_x}{S} \right) \\
+  S_{tt} &\equiv \sum_{i=1}^N t_i^2
+\end{align}
+%-------------------------------------------------------------------------------
+then the parameters of slope, $m$, and $y$-intercept, $b$, in the equation $y=mx+b$ are given by
+%-------------------------------------------------------------------------------
+\begin{align}
+  m &= \frac{1}{S_{tt}} \sum_{i=1}^N \frac{t_i y_i}{\sigma_i} \\
+  b &= \frac{S_y-S_x m}{ S}
+\end{align}
+%-------------------------------------------------------------------------------
+with uncertainties
+\begin{align}
+  \sigma_m^2 &= \frac{1}{S_{tt}} \\
+  \sigma_b^2 &= \frac{1}{S}\left( 1+\frac{S_x^2}{S\,S_{tt}} \right).
+\end{align}
 
 \subsection{Uncertainty in $x$-- and $y$--values}
 Now I'm going to treat a linear fit to data with uncertainties in both $y$, the dependent variable, \textit{and} $x$, the independent variable (i.e., $y=f(x)$).
