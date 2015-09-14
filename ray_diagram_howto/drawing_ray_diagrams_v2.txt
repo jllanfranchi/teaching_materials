@@ -1,0 +1,23 @@
+Start from left side. Draw the following two rays until they hit the lens:
+	-Ray 1_l: This wants to pass through both the tip of the object and the
+		object focus, F_o.
+	-Ray 2_l: This is parallel to the optical axis (OA) and wants to pass
+		through the top of the object (were its direction not changed by the
+		lens)
+
+Now draw what emerges after the two rays pass through the lens:
+	-Ray 1_r: This one always ends up parallel to the OA after passing through
+		the lens, so draw a ray from Ray 1_l's intersection with the lens off to
+		the right, parallel to the OA
+	-Ray 2_r: The angle at which this ray deflects is determined by the image
+		focus, F_i. So draw, from the lens and out to the right, a ray
+		that *would* intersect F_i (if F_i is on the left side of the lens) or
+		that *does* intersect F_i (if F_i is on the right side of the lens).
+
+Now act as an observer far to the right of the lens. All you see is what
+emerges from the right side of the lens, so just ignore everything to the left
+of the lens. All you see, therefore, are the two rays emerging from the right
+side of the lens.
+
+At what common point does it appear that these two rays intersect? This point
+delineates the image location and height.

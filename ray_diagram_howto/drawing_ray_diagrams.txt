@@ -1,0 +1,37 @@
+1. Draw a line through the object and C
+2. Draw a line through the object and the object focus F_o
+3. Draw a line parallel to the OA through the object.
+
+Lines (2) and (3) will diverge (negative lens) or converge (positive lens) when
+they strike (from left to right) the lens. Draw that line as appropriate for
+the lens. ANY line you draw, parallel, bent, left or right of the lens, can be
+extended arbitrarily far in either direction. But arrows will always be placed
+to indicate that the light is moving to the right, and only place arrows on
+the ends of rays that started from the left and were bent appropriately by the
+lens on the right. (e.g., the unbent portion of ray (3), extended to the right
+of the lens, should be dotted and NOT have arrows on it.)
+
+If the object is directly over one of the focii, simply omit the corresponding
+line (2) or (3). If the object is directly above the center, omit that line;
+the image is identical to the object here (this unphysical situation is a
+sanity check on the math ONLY).
+
+A virtual object is one with light rays converging towards it. As far as these
+diagrams go, that means that it is on the right-hand-side of the lens. A
+virtual image is one with light rays diverging from it. This can appear on
+either side of the lens; use the arrows drawn above to identify the diverging
+or converging behavior of the photons near the image. A real image also is a
+place where an image would be formed on an opaque card placed at the location.
+
+Note these helpful guidelines:
+	Magnification is 1 when the object (and image) is at the center.
+
+	Magnification is 0 when the IMAGE is located on the image focus.
+
+	An object MORE than twice the object-focal distance away from the vertex
+	will produce a MINIFIED image LESS than twice the image-focal distance from
+	the vertex, regardless of type of lens.
+
+	An object LESS than twice the object-focal distance away from the vertex
+	(but still further out than F_o) will produce a MAGNIFIED image MORE than
+	twice the image-focal distance from the vertex, regardless of type of lens.
