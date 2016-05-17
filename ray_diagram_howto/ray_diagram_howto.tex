@@ -23,10 +23,13 @@
 \usepackage{setspace}
 \usepackage{pxfonts}
 \usepackage{times}
-
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{hyperref}
 \usepackage{lastpage}
 \usepackage{mathrsfs}
 \usepackage{booktabs}
+\usepackage{datetime}
+\yyyymmdddate
 
 %\def\thechapter       {\arabic{chapter}}
 \def\thesection       {\arabic{section}}
@@ -74,7 +77,10 @@
 \renewcommand{\bottomfraction}{0.95}
 \renewcommand{\floatpagefraction}{0.35}
 \setcounter{totalnumber}{5}
-
+\renewcommand{\figurename}{}
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
 
 \geometry{top=0.75in,left=0.75in,right=0.75in,bottom=0.75in}
 \title{Guidelines for Drawing Ray Diagrams}
@@ -85,11 +91,11 @@
 
 %-- Header and footer specification, as per fancyhdr package
 \lhead{}
-\chead{\fontsize{8}{1}{\hspace{10pt}}\selectfont\scshape Guidelines for Drawing Ray Diagrams{\hfill\vline\hfill}Justin Lanfranchi{\hfill\vline\hfill}2010.12.16{\hfill\vline}\hspace{10pt}Page \page of \pageref{LastPage}\hspace{10pt}}
+\chead{\fontsize{8}{1}{\hspace{10pt}}\selectfont\scshape Guidelines for Drawing Ray Diagrams{\hfill\vline\hfill}Justin Lanfranchi{\hfill\vline\hfill}2010\,.\,12\,.\,16{\hfill\vline}\hspace{10pt}Page \thepage of \pageref{LastPage}\hspace{10pt}}
 \rhead{}
-\lfoot{}
+\lfoot{\small\url{http://personal.psu.edu/jll1062/Documents/ray_diagram_howto.pdf}}
 \cfoot{}
-\rfoot{}
+\rfoot{\small Version 1.1, compiled \today $\,$ \currenttime}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.5pt}
 
@@ -99,7 +105,6 @@
 	\setlength{\parskip}{0pt}
 	\setlength{\parsep}{-1pt}}
 {\end{description}}
-
 \newenvironment{myitemize}
 {\begin{itemize}
 	\setlength{\itemsep}{-1pt}
@@ -159,7 +164,7 @@
 %\maketitle
 \raggedright
 %\singlespacing
-\onehalfspacing
+%\onehalfspacing
 
 %\section*{Drawing ray diagrams}
 %\setlength{\tabcolsep}{12pt}
@@ -241,9 +246,9 @@
 \end{myindentpar}
 
 %\setlength{\tabcolsep}{12pt}
-\section*{Primer}
-\begin{myindentpar}{20pt}
-\end{myindentpar}
+%\section*{Primer}
+%\begin{myindentpar}{20pt}
+%\end{myindentpar}
 
 %\setlength{\tabcolsep}{12pt}
 \section*{Assumptions}
@@ -265,7 +270,7 @@
 \section*{Rules for creating thin-lens ray diagrams}
 \begin{myindentpar}{20pt}
   \begin{myitemize}
-	\item[1.] Getting started
+	\item[0.] Getting started
   		\begin{myitemize}
 			\item[a)] Start light rays on the far left. Light rays run from left to right, exclusively.
 			\item[b)] Draw the optical axis as a horizontal line.
@@ -276,7 +281,7 @@
 			\item[e)] Place the object.
 			  Draw a vertical arrow starting from the optical axis and extending some distance up (or down) from the axis.
   		\end{myitemize}
-	  \item[2.] Draw \textbf{Ray 1}, or the object/image-focus ray.
+	  \item[1.] Draw \textbf{Ray 1}, or the object/image-focus ray.
   		\begin{myitemize}
 			\item[a)] This ray starts from the left running parallel to the optical axis (horizontal in our picture) and has the \textit{intention} of hitting the tip of the object (if no lens were present).
 			  In other words, this ray starts at the \textit{height of the object}.
@@ -284,17 +289,17 @@
 			\item[b)] When this ray finally hits the lens, it either converges to (for a positive lens) or diverges from (for a negative lens) the image focus.
 			  Line up a straight edge with both the point at which the ray intersects the lens and the image focus, and draw the ray along this sloped line from the lens rightwards.
   		\end{myitemize}
-	  \item[3.] Draw \textbf{Ray 2}, or the object/object-focus ray.
+	  \item[2.] Draw \textbf{Ray 2}, or the object/object-focus ray.
 		\begin{myitemize}
 			\item[a)] Starting from the left, this ray intends to intersect both the tip of the object and the object focus.
 			  Draw Ray 2 as if this were the case, \textit{up until it strikes the lens}.
 			\item[b)] Upon striking the lens, Ray 2 bends to be parallel with the optical axis, so draw the ray as a horizontal line from the lens on out to the right.
   		\end{myitemize}
-	  \item[4.] Draw \textbf{Ray 3}, or the central ray.
+	  \item[3.] Draw \textbf{Ray 3}, or the central ray.
   		\begin{myitemize}
 			\item[] Also draw this ray left to right. It passes through both the tip of the object and the center of the lens, and does \textit{not} change direction, even as it strikes the lens.
   		\end{myitemize}
-	\item[5.] Locate the image.
+	\item[4.] Locate the image.
   		\begin{myitemize}
 		\item[a)] To make it clear what the observer (or screen) on the right of the lens will experience, cover up everything on the left of the lens.
 		\item[b)] From what common point does it look like the rays diverge? Or to what point do the rays converge? If the rays on the right side of the lens are diverging, trace them back to their common intersection.
@@ -322,51 +327,75 @@
 \section*{An example requiring back tracing}
 \begin{myindentpar}{20pt}
   Now we present a pictorial example employing the above rules.
+ %\begin{figure}[htb]
+ %  \caption{Step 1a---draw the optical axis.}
+ % 	{\includegraphics[width=4in,left]{ray_diagram_howto_step01_optic_axis.pdf}}
+ %\end{figure}
+ %\begin{figure}[htb]
+ %   \caption{Step 1b---draw the lens; note that this is a negative lens}
+ % 	{\includegraphics[width=4in,left]{ray_diagram_howto_step02_lens.pdf}}
+ %\end{figure}
  \begin{figure}[htb]
-	\caption{Step 1b---draw the optical axis}
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step01_optic_axis.pdf}}
+	%\caption{Step 1c---label the foci}
+   Steps 0a-0d---draw the optical axis, the lens (note this is a negative---aka diverging---lens), and the locations of the foci. \textit{Make sure to label which focus is which!}
+
+  	\includegraphics[width=4in,left]{ray_diagram_howto_step03_focii.pdf}
  \end{figure}
  \begin{figure}[htb]
-	\caption{Step 1c---draw the lens; note that this is a negative lens}
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step02_lens.pdf}}
+	{Step 0e---draw the object}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step04_object.pdf}}
  \end{figure}
  \begin{figure}[htb]
-	\caption{Step 1d---label the foci}
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step03_focii.pdf}}
+	{Step 1a---Object/image-focus ray (ray 1) starts from left going parallel to OA vertically located so that it (would) hit the object.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step05_ray1a.pdf}}
  \end{figure}
  \begin{figure}[htb]
-	\caption{Step 1e---draw the object}
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step04_object.pdf}}
+	{Step 1b---Object/image-focus ray (ray 1) continues straight until it hits the lens.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step06_ray1b.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step05_ray1a.pdf}}
+   {Step 1c---Object/image-focus ray (ray 1) bends towards or (as in this case) away from the image focus after hitting the lens. \textit{Note that the dotted line here is just a guide, like where you'd put your ruler and \textbf{not} a traceback!}}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step07_ray1c.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step06_ray1b.pdf}}
+	{Step 2a---Object/object-focus ray (ray 2) starts from the left with ``intention'' to pass through the tip of the object and the object focus. \textit{Note that the dotted line here is just a guide, like where you'd put your ruler and \textbf{not} a traceback!}}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step08_ray2a.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step07_ray1c.pdf}}
+	{Step 2b---Object/object-focus ray (ray 2) bends to parallel upon passing through the lens.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step09_ray2b.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step08_ray2a.pdf}}
+   {Step 3---Central ray (ray 3) passes through the vertex where the lens meets the optical axis, and \textit{does not bend} as it passes through.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step10_ray3.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step09_ray2b.pdf}}
+   {Step 4a---Cover up the side opposite the observer (the left side in this case); \textit{only pay attention to the rays coming out towards the observer}.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step11_cover_left.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step10_ray3.pdf}}
+   {Step 4b---Where would an observer perceive the light rays coming from? Identify the rays diverging from a common point on the opposite side of the lens from the observer (as here) or converging to a common point on the same side as the observer.
+   The former case, as drawn below, tells you what traceback is necessary (traceback shown as dotted lines).}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step12_id_conv_or_div_point.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step11_cover_left.pdf}}
+   {Step 4c--Draw an arrow perpendicular to the optical axis with its tip where the lines intersect; this is the image.}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step13_image.pdf}}
  \end{figure}
  \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step12_id_conv_or_div_point.pdf}}
- \end{figure}
- \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step13_image.pdf}}
- \end{figure}
- \begin{figure}[htb]
-  	\center{\includegraphics[width=5in]{ray_diagram_howto_step14_final.pdf}}
+   {Overview of all the lines drawn (as your paper might appear).}
+
+  	{\includegraphics[width=4in,left]{ray_diagram_howto_step14_final.pdf}}
  \end{figure}
 
 
