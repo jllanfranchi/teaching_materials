@@ -19,8 +19,8 @@ class prior
 
 	private:
 		// keep these things protected from evil callers!
-		string type;
-		string str_info;
+		const string type;
+		const string str_info;
 };
 
 

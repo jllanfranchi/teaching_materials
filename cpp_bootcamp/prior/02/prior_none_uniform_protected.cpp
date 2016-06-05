@@ -2,29 +2,15 @@
 #include <sstream>
 using namespace std;
 
-/*
- * "Virtual Function":
- *
- *		which version of an overriden function gets called is determined at
- *		runtime; example of "dynamic polymorphism."
- *
- * "Polymorphic Types":
- *
- * 		classes containing virtual function(s).
- */
-
 class prior
 {
 	public:
 		prior() : type("none"), str_info("") {}
 		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
-
-		// which llh function is called by 'chi2' will be determined at runtime
-		// via "vtables"
-
-		virtual double llh(double x) { return 0; }
+		double llh(double x) { return 0; }
 		double chi2(double x) { return -2*llh(x); }
 
+	// private data cannot be modified by subclasses, but "protected" can...
 	protected:
 		string type;
 		string str_info;
@@ -35,13 +21,11 @@ class uniform
 {
 	public:
 		uniform(double offset) : offset(offset) {
+			// ... so now this compiles!
 			type = "uniform";
 			str_info = "offset = " + to_string(offset);
 		}
-
-		// not necessary to include 'virtual' here, but will anyway for clarity
-
-		virtual double llh(double x) { return offset; }
+		double llh(double x) { return offset; }
 
 	private:
 		const double offset;
@@ -59,11 +43,9 @@ int main(void)
 	uniform u(-0.2);
 	u.info();
 	cout << "u.llh(1) = " << u.llh(1) << endl;
-	// chi2 now works for the derived class!
+	// but what's the deal with chi2 returning 0?
 	cout << "u.chi2(1) = " << u.chi2(1) << endl << endl;
-
 	cout << "u.llh(2) = " << u.llh(1) << endl;
-	// and here as well
 	cout << "u.chi2(2) = " << u.chi2(1) << endl << endl;
 
 	return 0;

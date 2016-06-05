@@ -22,12 +22,15 @@ using namespace std;
 
 
 // Solution to problem above:
-//  -> Make an agnostic, abstract class "prior"
+//  -> Make an agnostic, abstract class "prior" not meant to be intialized
 //  -> move "none" to its own class.
 
 class prior
 {
 	public:
+		// Constructor with no defaults ('prior' is agnostic now)
+		prior(const string &type, const string &str_info) : type(type), str_info(str_info) {}
+
 		// Might as well implement these, since they don't change
 		// (of course you could still override these for an atypical case)
 
@@ -40,17 +43,17 @@ class prior
 		virtual double llh(double) = 0; // <- pure virtual = 0
 
 	protected:
-		string type;
-		string str_info;
+		const string type;
+		const string str_info;
 };
 
 class none
 	: public prior
 {
 	public:
-		none() {
-			type = "none";
-			str_info = "";
+		none() : prior("none", "") {
+			//type = "none";
+			//str_info = "";
 		}
 		virtual double llh(double x) { return 0; }
 };
@@ -59,10 +62,8 @@ class uniform
 	: public prior
 {
 	public:
-		uniform(double offset) : offset(offset) {
-			type = "uniform";
-			str_info = "offset = " + to_string(offset);
-		}
+		uniform(double offset) : offset(offset),
+			prior("uniform", "offset = " + to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 
 		// Slight detour: getters and setters
@@ -79,10 +80,12 @@ int main(void)
 	none n;
 	n.info();
 	cout << "n.llh(1) = " << n.llh(1) << endl;
+	cout << "n.chi2(1) = " << n.chi2(1) << endl << endl;
 
 	uniform u(-0.2);
 	u.info();
-	cout << "u.llh(1) = " << u.llh(1) << endl << endl;
+	cout << "u.llh(1) = " << u.llh(1) << endl;
+	cout << "u.chi2(1) = " << u.chi2(1) << endl << endl;
 
 	// Try the setter and getter methods out
 	cout << "SETTER / GETTER... " << endl;
