@@ -29,12 +29,15 @@ class prior
 {
 	public:
 		// Constructor with no defaults ('prior' is agnostic now)
-		prior(const string &type, const string &str_info) : type(type), str_info(str_info) {}
+		prior(const string &type, const string &str_info)
+			: type(type), str_info(str_info) {}
 
 		// Might as well implement these, since they don't change
 		// (of course you could still override these for an atypical case)
 
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() {
+			cout << "prior : " << type << " ; " << str_info << endl;
+		}
 		double chi2(double x) { return -2*llh(x); }
 
 		// Pure virtual functions must be implemented by inheritors
@@ -51,10 +54,7 @@ class none
 	: public prior
 {
 	public:
-		none() : prior("none", "") {
-			//type = "none";
-			//str_info = "";
-		}
+		none() : prior("none", "") {}
 		virtual double llh(double x) { return 0; }
 };
 

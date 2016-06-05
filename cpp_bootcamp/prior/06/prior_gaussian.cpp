@@ -5,23 +5,24 @@ using namespace std;
 class prior
 {
 	public:
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		prior(const string &type, const string &str_info)
+			: type(type), str_info(str_info) {}
+		void info() {
+			cout << "prior : " << type << " ; " << str_info << endl;
+		}
 		double chi2(double x) { return -2*llh(x); }
-		virtual double llh(double) = 0; // <- pure virtual = 0
+		virtual double llh(double) = 0;
 
 	protected:
-		string type;
-		string str_info;
+		const string type;
+		const string str_info;
 };
 
 class none
 	: public prior
 {
 	public:
-		none() {
-			type = "none";
-			str_info = "";
-		}
+		none() : prior("none", "") {}
 		virtual double llh(double x) { return 0; }
 };
 
@@ -29,10 +30,8 @@ class uniform
 	: public prior
 {
 	public:
-		uniform(double offset) : offset(offset) {
-			type = "uniform";
-			str_info = "offset = " + to_string(offset);
-		}
+		uniform(double offset) : offset(offset),
+			prior("uniform", "offset = " + to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
@@ -45,10 +44,9 @@ class gaussian
 	: public prior
 {
 	public:
-		gaussian(double mean, double stddev) : mean(mean), stddev(stddev) {
-			type = "Gaussian";
-			str_info = "mean = " + to_string(mean) + ", stddev = " + to_string(stddev);
-		}
+		gaussian(double mean, double stddev) : mean(mean), stddev(stddev),
+			prior("Gaussian", "mean = " + to_string(mean) + ", stddev = "
+					+ to_string(stddev)) {}
 		double llh(double x) { return -(x-mean)*(x-mean)/(2*stddev*stddev); }
 
 		// Only defining getters, so outside world can't change our state
@@ -57,8 +55,8 @@ class gaussian
 		double get_stddev() { return stddev; }
 
 	private:
-		double mean;
-		double stddev;
+		const double mean;
+		const double stddev;
 };
 
 // Define a free function to work with priors.

@@ -5,7 +5,11 @@ using namespace std;
 class prior
 {
 	public:
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		prior(const string &type, const string &str_info)
+			: type(type), str_info(str_info) {}
+		void info() {
+			cout << "prior : " << type << " ; " << str_info << endl;
+		}
 		double chi2(double x) { return -2*llh(x); }
 		virtual double llh(double) = 0;
 
@@ -18,22 +22,17 @@ class none
 	: public prior
 {
 	public:
-		none() {
-			type = "none";
-			str_info = "";
-		}
+		none() : prior("none", "") {}
 		virtual double llh(double x) { return 0; }
 };
 
 class uniform
-	// Make prior virtual base class
+	// Make prior a virtual base class
 	: public virtual prior
 {
 	public:
-		uniform(double offset) : offset(offset) {
-			type = "uniform";
-			str_info = "offset = " + to_string(offset);
-		}
+		uniform(double offset) : offset(offset),
+			prior("uniform", "offset = " + to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
@@ -43,16 +42,14 @@ class uniform
 };
 
 class gaussian
-	// Make prior virtual base class
+	// Make prior a virtual base class
 	: public virtual prior
 {
 	public:
-		gaussian(double mean, double stddev) : mean(mean), stddev(stddev) {
-			type = "Gaussian";
-			str_info = "mean = " + to_string(mean) + ", stddev = "
-				+ to_string(stddev);
-		}
-		virtual double llh(double x) { return -(x-mean)*(x-mean)/(2*stddev*stddev); }
+		gaussian(double mean, double stddev) : mean(mean), stddev(stddev),
+			prior("Gaussian", "mean = " + to_string(mean) + ", stddev = "
+					+ to_string(stddev)) {}
+		double llh(double x) { return -(x-mean)*(x-mean)/(2*stddev*stddev); }
 		double get_mean() { return mean; }
 		double get_stddev() { return stddev; }
 
@@ -66,11 +63,11 @@ class offset_gaussian
 {
 	public:
 		offset_gaussian(double ofst, double mu, double sigma)
-			: prior(), gaussian(mu, sigma), uniform(ofst) {
-			type = "offset Gaussian";
-			str_info = "offset = " + to_string(offset) + ", mean = "
-				+ to_string(mean) + ", stddev = " + to_string(stddev);
-		}
+			: prior("offset Gaussian", "offset = " + to_string(ofst)
+					+ ", mean = " + to_string(mu)
+					+ ", stddev = " + to_string(sigma)),
+			gaussian(mu, sigma), uniform(ofst) {}
+
 		virtual double llh(double x) { return uniform::llh(x) + gaussian::llh(x); }
 		double get_offset() { return offset; }
 		double get_mean() { return mean; }
@@ -104,13 +101,13 @@ int main(void)
 	cout << "og.chi2(1) = " << og.chi2(1) << endl << endl;
 
 	cout << endl;
-	cout << "og.set_offset(-1);" << endl;
+	cout << "og.set_offset(-1); og.set_stddev(3);" << endl;
 	og.set_offset(-1);
-	cout << "og.set_stddev(5);" << endl;
-	og.set_stddev(5);
-	og.info();
+	og.set_stddev(3);
 	cout << "og.get_offset();" << og.get_offset() << endl;
 	cout << "og.get_stddev();" << og.get_stddev() << endl;
+	cout << "og.info();" << endl;
+	og.info();
 	cout << "og.chi2(1) = " << og.chi2(1) << endl << endl;
 
 	return 0;
