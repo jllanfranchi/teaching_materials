@@ -45,7 +45,7 @@ class uniform
 {
 	public:
 		uniform(double offset) : offset(offset) {}
-		virtual double llh(double x) { return offset; }
+		virtual double llh(double x) override { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
 
