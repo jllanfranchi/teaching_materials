@@ -92,7 +92,7 @@ int main(void)
 	cout << "u.set_offset(-10.0);" << endl;
 	u.set_offset(-10.0);
 	cout << "u.get_offset() = " << u.get_offset() << endl;
-
+	cout << "u.info():" << endl;
 	u.info();
 	cout << "u.llh(1) = " << u.llh(1) << endl;
 	cout << "u.chi2(1) = " << u.chi2(1) << endl << endl;
