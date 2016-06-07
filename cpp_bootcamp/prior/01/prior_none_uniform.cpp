@@ -10,7 +10,8 @@ class prior
 {
 	public:
 		prior() : type("none"), str_info("") {}
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() { cout << "prior : " << type << " ; "
+			<< str_info << endl; }
 		double llh(double x) { return 0; }
 		double chi2(double x) { return -2*llh(x); }
 
@@ -28,7 +29,8 @@ class uniform
 	: public prior // <== inherit publicly from 'prior' using this syntax
 {
 	public:
-		// constructor for uniform; prior constructed by default
+		// constructor for uniform; prior constructed by
+		// default
 		uniform(double offset) : offset(offset) {
 			// populate data for this kind of prior
 			type = "uniform";

@@ -11,16 +11,22 @@ using namespace std;
 class prior
 {
 	public:
+		virtual ~prior() {}
 
 		// Constructor with default values
 
-		prior(const string &type="none", const string &str_info="")
+		prior(const string &type="none",
+				const string &str_info="")
 			: type(type), str_info(str_info) {}
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() {
+			cout << "prior : " << type << " ; "
+			<< str_info << endl;
+		}
 		virtual double llh(double x) { return 0; }
 		double chi2(double x) { return -2*llh(x); }
 
-	// These can be private again since we now only use 'prior' to access them.
+	// These can be private again since we now only use
+	// 'prior' to access them.
 
 	private:
 		const string type;
@@ -32,10 +38,14 @@ class uniform
 	: public prior
 {
 	public:
+		virtual ~uniform() {}
 		uniform(double offset)
-			: offset(offset), // constructor for things in 'uniform'...
-			                  // ... and for things in 'prior'!
-			prior("uniform", "offset = " + to_string(offset)) {} 
+			: offset(offset), // constructor for things in
+			                  //  'uniform'...
+							  // ... and for things in
+							  // 'prior'!
+			prior("uniform", "offset = " +
+					to_string(offset)) {} 
 		virtual double llh(double x) { return offset; }
 
 	private:

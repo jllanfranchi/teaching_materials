@@ -1,16 +1,18 @@
 #include <iostream>
-#include <sstream>
+//#include <sstream>
 using namespace std;
 
 class prior
 {
 	public:
 		prior() : type("none"), str_info("") {}
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() { cout << "prior : " << type << " ; "
+			<< str_info << endl; }
 		double llh(double x) { return 0; }
 		double chi2(double x) { return -2*llh(x); }
 
-	// private data cannot be modified by subclasses, but "protected" can...
+	// private data cannot be modified by subclasses, but
+	// "protected" can...
 	protected:
 		string type;
 		string str_info;
