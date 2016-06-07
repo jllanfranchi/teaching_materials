@@ -36,7 +36,8 @@ class none
 	public:
 		none() {}
 
-		// 'override' keyword added so compiler knows our intentions, checks
+		// 'override' keyword added so compiler knows our
+		// intentions, checks
 		// that no typo's
 		virtual double llh(double x) override { return 0; }
 

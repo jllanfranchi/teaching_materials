@@ -8,40 +8,47 @@ using namespace std;
 /*
  * "Pure Virtual Function":
  *
- *		Function declared with ' = 0' appended; inheriting classes *must*
- *		implement, or they will not build.
+ *		Function declared with ' = 0' appended; inheriting
+ *		classes *must* implement, or they will not build.
  *
  * "Abstract Classes":
  *
- * 		Contain >= 1 /pure virtual/ functions (may implemented other functions)
+ * 		Contain >= 1 /pure virtual/ functions (may
+ * 		implemented other functions)
  *
  * "Interface":
  *
- * 		Class that contains /only/ pure virtual functions (no implementations)
+ * 		Class that contains /only/ pure virtual functions
+ * 		(no implementations)
  */
 
 
 // Solution to problem above:
-//  -> Make an agnostic, abstract class "prior" not meant to be intialized
+//  -> Make an agnostic, abstract class "prior" not meant
+//     to be intialized
 //  -> move "none" to its own class.
 
 class prior
 {
 	public:
 
-		// Constructor now with no defaults ('prior' is now agnostic!)
+		// Constructor now with no defaults ('prior' is now
+		// agnostic!)
 
 		prior(const string &type, const string &str_info)
 			: type(type), str_info(str_info) {}
 
-		// Might as well implement 'info' and 'chi2', since they don't change
-		// (of course you could still override these for an unusual case)
+		// Might as well implement 'info' and 'chi2', since
+		// they don't change
+		// (of course you could still override these for an
+		// unusual case)
 
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() { cout << "prior : " << type << " ; "
+			<< str_info << endl; }
 		double chi2(double x) { return -2*llh(x); }
 
-		// Pure virtual functions must be implemented by inheritors
-		// or they won't build!
+		// Pure virtual functions must be implemented by
+		// inheritors or they won't build!
 
 		virtual double llh(double) = 0; // <- pure virtual = 0
 
@@ -65,7 +72,8 @@ class uniform
 	public:
 		uniform(double offset)
 			: offset(offset),
-			prior("uniform", "offset = " + to_string(offset)) {}
+			prior("uniform", "offset = " +
+					to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 
 		// Slight detour: getters and setters
@@ -109,8 +117,9 @@ int main(void)
 
 	/* 
 	 *
-	 * From some calling code, we won't care what /kind/ of prior we
-	 * have, we just want to get the log likelihood.
+	 * From some calling code, we won't care what /kind/ of
+	 * prior we have, we just want to get the log
+	 * likelihood.
 	 *
 	 *
 	 */
@@ -120,19 +129,25 @@ int main(void)
 	
 	// Abstract class can form reference to derived class
 	prior& prior_reference_to_u = u;
-	cout << "prior_reference_to_u.llh(1) = " << prior_reference_to_u.llh(1) << endl;
-	cout << "prior_reference_to_u.chi2(1) = " << prior_reference_to_u.chi2(1) << endl << endl;
+	cout << "prior_reference_to_u.llh(1) = " <<
+		prior_reference_to_u.llh(1) << endl;
+	cout << "prior_reference_to_u.chi2(1) = " <<
+		prior_reference_to_u.chi2(1) << endl << endl;
 
-	//    ... but since 'prior' doesn't know about 'set_offset' function, you
-	//    can't access this and other methods only defined in the child.
+	//    ... but since 'prior' doesn't know about
+	//    'set_offset' function, you can't access this and
+	//    other methods only defined in the child.
 	//prior_reference_to_u.set_offset(-1);
 
 	// Abstract class can be pointer to derived class
 	prior* prior_pointer_to_u = &u;
-	cout << "prior_pointer_to_u->llh(1) = " << prior_pointer_to_u->llh(1) << endl;
-	cout << "prior_pointer_to_u->chi2(1) = " << prior_pointer_to_u->chi2(1) << endl << endl;
+	cout << "prior_pointer_to_u->llh(1) = " <<
+		prior_pointer_to_u->llh(1) << endl;
+	cout << "prior_pointer_to_u->chi2(1) = " <<
+		prior_pointer_to_u->chi2(1) << endl << endl;
 
-	//    ... again, 'prior' doesn't know about 'set_offset' function
+	//    ... again, 'prior' doesn't know about
+	//    'set_offset' function
 	//prior_pointer_to_u->set_offset(-1);
 
 

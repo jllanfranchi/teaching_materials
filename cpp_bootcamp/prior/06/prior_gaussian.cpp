@@ -48,11 +48,14 @@ class gaussian
 	public:
 		gaussian(double mean, double stddev)
 			: mean(mean), stddev(stddev),
-			prior("Gaussian", "mean = " + to_string(mean) + ", stddev = "
+			prior("Gaussian", "mean = " + to_string(mean) +
+					", stddev = "
 					+ to_string(stddev)) {}
-		double llh(double x) { return -(x-mean)*(x-mean)/(2*stddev*stddev); }
+		double llh(double x) { return
+			-(x-mean)*(x-mean)/(2*stddev*stddev); }
 
-		// Only defining getters, so outside world can't change our state here
+		// Only defining getters, so outside world can't
+		// change our state here
 
 		double get_mean() { return mean; }
 		double get_stddev() { return stddev; }
@@ -69,7 +72,8 @@ class gaussian
 //  -> cannot take value because 'prior' is abstract now
 //
 //  -> but even if it weren't, a copy of one of the prior
-//     classes will lose virtual functions (dynamic polymorphism)
+//     classes will lose virtual functions (dynamic
+//     polymorphism)
 
 double llh_freefunc(prior& p, double x) {
 	return p.llh(x);
