@@ -2,21 +2,21 @@
 #include <sstream>
 using namespace std;
 
+
 class prior
 {
 	public:
 		prior(const string &type, const string &str_info)
 			: type(type), str_info(str_info) {}
-		void info() {
-			cout << "prior : " << type << " ; " << str_info << endl;
-		}
+		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
 		double chi2(double x) { return -2*llh(x); }
 		virtual double llh(double) = 0;
 
-	protected:
-		string type;
-		string str_info;
+	private:
+		const string type;
+		const string str_info;
 };
+
 
 class none
 	: public prior
@@ -26,24 +26,25 @@ class none
 		virtual double llh(double x) { return 0; }
 };
 
+
 class uniform
-	// Make prior a virtual base class
-	: public virtual prior
+	: public virtual prior // <== Make prior a virtual base class
 {
 	public:
-		uniform(double offset) : offset(offset),
+		uniform(double offset)
+			: offset(offset),
 			prior("uniform", "offset = " + to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
 
-	protected:
+	private:
 		double offset;
 };
 
+
 class gaussian
-	// Make prior a virtual base class
-	: public virtual prior
+	: public virtual prior // <== Make prior a virtual base class
 {
 	public:
 		gaussian(double mean, double stddev) : mean(mean), stddev(stddev),
@@ -53,15 +54,17 @@ class gaussian
 		double get_mean() { return mean; }
 		double get_stddev() { return stddev; }
 
-	protected:
-		double mean;
-		double stddev;
+	private:
+		const double mean;
+		const double stddev;
 };
+
 
 class offset_gaussian
 	: public gaussian, public uniform
 {
 	public:
+		// Now we can initialize the "grandparent" ourselves
 		offset_gaussian(double ofst, double mu, double sigma)
 			: prior("offset Gaussian", "offset = " + to_string(ofst)
 					+ ", mean = " + to_string(mu)
@@ -69,12 +72,6 @@ class offset_gaussian
 			gaussian(mu, sigma), uniform(ofst) {}
 
 		virtual double llh(double x) { return uniform::llh(x) + gaussian::llh(x); }
-		double get_offset() { return offset; }
-		double get_mean() { return mean; }
-		double get_stddev() { return stddev; }
-		void set_offset(double ofst) { offset = ofst; }
-		void set_mean(double mu) { mean = mu; }
-		void set_stddev(double sigma) { stddev = sigma; }
 };
 
 
@@ -83,31 +80,61 @@ double llh_freefunc(prior& p, double x) {
 }
 
 
+double chi2_freefunc(prior *p, double x) {
+	return p->chi2(x);
+}
+
+
 int main(void)
 {
+	// Create a 'none' prior, and print info about it
 	none n;
+	n.info();
 	cout << "llh_freefunc(n, 1) = " << llh_freefunc(n, 1) << endl;
-
-	uniform u(-0.2);
-	cout << "llh_freefunc(u, 1) = " << llh_freefunc(u, 1) << endl;
-
-	gaussian g(0, 1);
-	cout << "llh_freefunc(g, 1) = " << llh_freefunc(g, 1) << endl << endl;
-
-	offset_gaussian og(-10, 0, 1);
-	cout << "og.info() = ";
-	og.info();
-	cout << "llh_freefunc(og, 1) = " << llh_freefunc(og, 1) << endl;
-	cout << "og.chi2(1) = " << og.chi2(1) << endl << endl;
+	cout << "chi2_freefunc(&n, 1) = " << chi2_freefunc(&n, 1) << endl;
+	cout << "llh_freefunc(n, 2) = " << llh_freefunc(n, 2) << endl;
+	cout << "chi2_freefunc(&n, 2) = " << chi2_freefunc(&n, 2) << endl;
 
 	cout << endl;
-	cout << "og.set_offset(-1); og.set_stddev(3);" << endl;
+
+	// Create a 'uniform' prior, and print info about it
+	uniform u(-0.2);
+	u.info();
+	cout << "llh_freefunc(u, 1) = " << llh_freefunc(u, 1) << endl;
+	cout << "chi2_freefunc(&u, 1) = " << chi2_freefunc(&u, 1) << endl;
+	cout << "llh_freefunc(u, 2) = " << llh_freefunc(u, 2) << endl;
+	cout << "chi2_freefunc(&u, 2) = " << chi2_freefunc(&u, 2) << endl;
+
+	cout << endl;
+
+	// Create a 'gaussian' prior, and print info about it
+	gaussian g(0, 1);
+	g.info();
+	cout << "llh_freefunc(g, 1) = " << llh_freefunc(g, 1) << endl;
+	cout << "chi2_freefunc(&g, 1) = " << chi2_freefunc(&g, 1) << endl;
+	cout << "llh_freefunc(g, 2) = " << llh_freefunc(g, 2) << endl;
+	cout << "chi2_freefunc(&g, 2) = " << chi2_freefunc(&g, 2) << endl;
+
+	cout << endl;
+
+	// Create an 'offset_gaussian' prior, and print info about it
+	cout << "offset_gaussian og(-10, 0, 1);" << endl;
+	offset_gaussian og(-10, 0, 1);
+	og.info();
+	cout << "llh_freefunc(og, 1) = " << llh_freefunc(og, 1) << endl;
+	cout << "chi2_freefunc(&og, 1) = " << chi2_freefunc(&og, 1) << endl;
+	cout << "llh_freefunc(og, 2) = " << llh_freefunc(og, 2) << endl;
+	cout << "chi2_freefunc(&og, 2) = " << chi2_freefunc(&og, 2) << endl;
+
+	cout << endl;
+
+	cout << "og.get_offset() = " << og.get_offset() << endl;
+	cout << "og.set_offset(-1);" << endl;
 	og.set_offset(-1);
-	og.set_stddev(3);
-	cout << "og.get_offset();" << og.get_offset() << endl;
-	cout << "og.get_stddev();" << og.get_stddev() << endl;
+	cout << "og.get_offset() = " << og.get_offset() << endl;
 	cout << "og.info();" << endl;
 	og.info();
+	cout << "og.llh(1) = " << og.llh(1) << endl;
 	cout << "og.chi2(1) = " << og.chi2(1) << endl << endl;
 
 	return 0;

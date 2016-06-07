@@ -30,6 +30,7 @@ class prior
 		string str_info;
 };
 
+
 class uniform
 	: public prior
 {
@@ -47,24 +48,26 @@ class uniform
 		const double offset;
 };
 
+
 int main(void)
 {
-	prior p;
-	p.info();
-	cout << "p.llh(1) = " << p.llh(1) << endl;
-	cout << "p.chi2(1) = " << p.chi2(1) << endl;
-	cout << "p.llh(1) = " << p.llh(2) << endl;
-	cout << "p.chi2(1) = " << p.chi2(2) << endl << endl;
+	// Create a 'none' prior, and print info about it
+	prior n;
+	n.info();
+	cout << "n.llh(1) = " << n.llh(1) << endl;
+	cout << "n.chi2(1) = " << n.chi2(1) << endl;
+	cout << "n.llh(2) = " << n.llh(2) << endl;
+	cout << "n.chi2(2) = " << n.chi2(2) << endl << endl;
 
+	// Create a 'uniform' prior, and print info about it
 	uniform u(-0.2);
 	u.info();
 	cout << "u.llh(1) = " << u.llh(1) << endl;
-	// chi2 now works for the derived class!
+	// does chi2 work for the derived class now?
 	cout << "u.chi2(1) = " << u.chi2(1) << endl << endl;
-
-	cout << "u.llh(2) = " << u.llh(1) << endl;
-	// and here as well
-	cout << "u.chi2(2) = " << u.chi2(1) << endl << endl;
+	cout << "u.llh(2) = " << u.llh(2) << endl;
+	// ... what about here?
+	cout << "u.chi2(2) = " << u.chi2(2) << endl << endl;
 
 	return 0;
 };

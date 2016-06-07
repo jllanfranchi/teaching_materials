@@ -2,7 +2,7 @@
 #include <sstream>
 using namespace std;
 
-// Problem: Awkward to subclass "none" prior to get a non-none Prior.
+// Problem: Awkward to subclass a 'none' prior to get the 'non-none' priors.
 
 
 /*
@@ -28,16 +28,16 @@ using namespace std;
 class prior
 {
 	public:
-		// Constructor with no defaults ('prior' is agnostic now)
+
+		// Constructor now with no defaults ('prior' is now agnostic!)
+
 		prior(const string &type, const string &str_info)
 			: type(type), str_info(str_info) {}
 
-		// Might as well implement these, since they don't change
-		// (of course you could still override these for an atypical case)
+		// Might as well implement 'info' and 'chi2', since they don't change
+		// (of course you could still override these for an unusual case)
 
-		void info() {
-			cout << "prior : " << type << " ; " << str_info << endl;
-		}
+		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
 		double chi2(double x) { return -2*llh(x); }
 
 		// Pure virtual functions must be implemented by inheritors
@@ -45,10 +45,11 @@ class prior
 
 		virtual double llh(double) = 0; // <- pure virtual = 0
 
-	protected:
+	private:
 		const string type;
 		const string str_info;
 };
+
 
 class none
 	: public prior
@@ -62,7 +63,8 @@ class uniform
 	: public prior
 {
 	public:
-		uniform(double offset) : offset(offset),
+		uniform(double offset)
+			: offset(offset),
 			prior("uniform", "offset = " + to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 
@@ -72,16 +74,24 @@ class uniform
 		void set_offset(double y) { offset = y; }
 
 	private:
+
+		// Can't be const anymore if we're gonna `set` it!
+
 		double offset;
 };
 
+
 int main(void)
 {
+	// Create a 'none' prior, and print info about it
 	none n;
 	n.info();
 	cout << "n.llh(1) = " << n.llh(1) << endl;
-	cout << "n.chi2(1) = " << n.chi2(1) << endl << endl;
+	cout << "n.chi2(1) = " << n.chi2(1) << endl;
+	cout << "n.llh(2) = " << n.llh(2) << endl;
+	cout << "n.chi2(2) = " << n.chi2(2) << endl;
 
+	// Create a 'uniform' prior, and print info about it
 	uniform u(-0.2);
 	u.info();
 	cout << "u.llh(1) = " << u.llh(1) << endl;

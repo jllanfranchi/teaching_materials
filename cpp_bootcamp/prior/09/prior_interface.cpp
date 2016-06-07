@@ -24,8 +24,8 @@ using namespace std;
 class prior
 {
 	public:
-		double chi2(double x) { return -2*llh(x); }
 		virtual void info() = 0;
+		double chi2(double x) { return -2*llh(x); }
 		virtual double llh(double) = 0;
 };
 
@@ -35,7 +35,12 @@ class none
 {
 	public:
 		none() {}
+
+		// 'override' keyword added so compiler knows our intentions, checks
+		// that no typo's
 		virtual double llh(double x) override { return 0; }
+
+		// Must implement this method here now
 		virtual void info() override { cout << "prior : none" << endl; }
 };
 
@@ -44,16 +49,19 @@ class uniform
 	: public virtual prior
 {
 	public:
-		uniform(double offset) : offset(offset) {}
+		uniform(double offset)
+			: offset(offset) {}
+								// 'prior' default constructor is fine
 		virtual double llh(double x) override { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
 
+		//
 		virtual void info() override {
 			cout << "prior : uniform, offset = " << offset << endl;
 		}
 
-	protected:
+	private:
 		double offset;
 };
 
@@ -67,6 +75,7 @@ class gaussian
 			return -(x-mean)*(x-mean)/(2*stddev*stddev);
 		}
 
+		//
 		virtual void info() override {
 			cout << "prior : Gaussian, mean = " << mean << ", stddev = "
 				<< stddev << endl;
@@ -75,9 +84,9 @@ class gaussian
 		double get_mean() { return mean; }
 		double get_stddev() { return stddev; }
 
-	protected:
-		double mean;
-		double stddev;
+	private:
+		const double mean;
+		const double stddev;
 };
 
 
@@ -88,23 +97,12 @@ class offset_gaussian
 		offset_gaussian(double offset, double mu, double sigma)
 			: prior(), gaussian(mu, sigma), uniform(offset) {}
 
-		virtual double llh(double x) override {
-			return uniform::llh(x) + gaussian::llh(x);
-		}
+		virtual double llh(double x) override { return uniform::llh(x) + gaussian::llh(x); }
 
 		virtual void info() override {
-			cout << "prior : offset Gaussian, offset = " << offset
-				<< ", mean = " << mean << ", stddev = " << stddev << endl;
+			cout << "prior : offset Gaussian, offset = " << get_offset()
+				<< ", mean = " << get_mean() << ", stddev = " << get_stddev() << endl;
 		}
-
-		double get_offset() { return offset; }
-		void set_offset(double ofst) { offset = ofst; }
-
-		double get_mean() { return mean; }
-		void set_mean(double mu) { mean = mu; }
-
-		double get_stddev() { return stddev; }
-		void set_stddev(double sigma) { stddev = sigma; }
 };
 
 
@@ -113,6 +111,12 @@ double llh_freefunc(prior& p, double x) {
 }
 
 
+double chi2_freefunc(prior *p, double x) {
+	return p->chi2(x);
+}
+
+
+// Add function for printing to reduce copy-paste
 void report(prior& p, const string &name) {
 	cout << "  " << name << ".info() :\n    "; p.info();
 	cout << "  llh_freefunc(" << name << ", 1)  = " << llh_freefunc(p, 1) << endl;
@@ -122,31 +126,35 @@ void report(prior& p, const string &name) {
 
 int main(void)
 {
+	// Create a 'none' prior, and print info about it
 	cout << "none n;" << endl;
 	none n;
 	report(n, "n");
 
+	// Create a 'uniform' prior, and print info about it
 	cout << "uniform u(-0.2);" << endl;
 	uniform u(-0.2);
 	report(u, "u");
 
+	// Create a 'gaussian' prior, and print info about it
 	cout << "gaussian g(0, 1);" << endl;
 	gaussian g(0, 1);
 	report(g, "g");
 
+	// Create an 'offset_gaussian' prior, and print info about it
 	cout << "offset_gaussian(-10, 0, 1);" << endl;
 	offset_gaussian og(-10, 0, 1);
 	report(og, "og");
 
 	cout << endl;
 
-	cout << "Now use setters on offset gaussian.\n\n";
-
-	cout << "og.set_offset(-1); og.set_stddev(3);" << endl;
-	og.set_offset(-1);
-	og.set_stddev(3);
 	cout << "og.get_offset() = " << og.get_offset() << endl;
-	cout << "og.get_stddev() = " << og.get_stddev() << endl;
+	cout << "og.set_offset(-1);" << endl;
+	og.set_offset(-1);
+	cout << "og.get_offset() = " << og.get_offset() << endl;
+
+	cout << endl;
+
 	report(og, "og");
 
 	return 0;

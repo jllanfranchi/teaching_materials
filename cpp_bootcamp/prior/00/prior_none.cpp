@@ -2,6 +2,7 @@
 #include <sstream>
 using namespace std;
 
+
 class prior
 {
 	public:
@@ -26,13 +27,13 @@ class prior
 
 int main(void)
 {
-	prior p;
-	p.info();
-	cout << "p.llh(1) = " << p.llh(1) << endl;
-	cout << "p.chi2(1) = " << p.chi2(1) << endl << endl;
-
-	cout << "p.llh(1) = " << p.llh(2) << endl;
-	cout << "p.chi2(1) = " << p.chi2(2) << endl << endl;
+	// Create a 'none' prior, and print info about it
+	prior n;
+	n.info();
+	cout << "n.llh(1) = " << n.llh(1) << endl;
+	cout << "n.chi2(1) = " << n.chi2(1) << endl;
+	cout << "n.llh(2) = " << n.llh(2) << endl;
+	cout << "n.chi2(2) = " << n.chi2(2) << endl << endl;
 
 	return 0;
 };
