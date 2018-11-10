@@ -1,0 +1,140 @@
+\documentclass[10pt,letterpaper,twoside]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[pdftex]{graphicx}     % Add some packages for figures. Read epslatex.pdf on ctan.tug.org
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{outlines}
+\usepackage{calligra}
+%\usepackage{pxfonts}
+%\usepackage[T1]{fontenc}{pxfonts}
+%\usepackage{newpxtext,newpxmath}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage[section]{placeins}
+\usepackage{color}
+\usepackage[labelfont={footnotesize,bf},font=footnotesize]{caption}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1200,stretch=20,shrink=20]{microtype}
+\usepackage[colorlinks=true,
+			linkcolor=webgreen, %defined below
+			filecolor=webbrown, %defined below
+			citecolor=webgreen, %defined below
+			%------------- Doc Info ---------------------------------
+			pdftitle={Pre-algebra problems},
+			pdfauthor={J. L. Lanfranchi},
+			pdfsubject={},
+			pdfkeywords={},
+			%------------ Doc View ----------------------------------
+			bookmarksopen=true,
+			pdfpagemode=UseOutlines]{hyperref}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webgreen}{rgb}{0.0,0,0.8}
+\definecolor{webbrown}{rgb}{0,0,0.8}
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\setlength{\floatsep}{0.01in}
+\setlength{\textfloatsep}{0.01in}
+\setlength{\topmargin}{0.01in}
+\setlength{\topskip}{0.01in}
+\setlength{\textheight}{0.1in}
+\setlength{\intextsep}{3pt}
+
+\newcommand{\sectionlinetwo}[2]{%
+  \nointerlineskip \vspace{.5\baselineskip}\hspace{\fill}
+  {\resizebox{0.5\linewidth}{1.2ex}
+    {\pgfornament[color = #1]{#2}
+    }}%
+    \hspace{\fill}
+    \par\nointerlineskip \vspace{.5\baselineskip}
+  }
+
+%\author{J. L. Lanfranchi}
+\title{Pre-algebra problems}
+\geometry{top=0.70in,left=0.70in,right=0.70in,bottom=0.70in}
+\begin{document} 
+\twocolumn
+\maketitle
+\begin{enumerate}
+    \item Solve for $x$ in the following: $$ 5\left(\frac{x^2}{3} - \frac{3}{4} \right) = \frac{35}{12} $$
+    \item Peter has more than 150 books, but less than 200 books. Of these, 20\% are novels, and 1/7 are collections of poems. How many books does Peter have?
+    \item Simplify the following expression
+            $$\frac{1}{\frac{1}{x} + \frac{1}{y}}$$
+        such that you end up with a single fraction where neither the numerator nor the
+        denominator has a fraction in it.
+    \item (Note that the following passage is basically copied from
+        \url{https://en.wikipedia.org/wiki/Thin\_lens} but I've chosen a different sign
+        convention, so equations won't look {\it exactly} the same as there.)
+
+        The focal length of a lens $f$ is useful for determining how a lens will
+        form images (how ``large'' they appear, and how far away an object must be for
+        it to be in focus based on how far away you are from the lens).
+
+        The focal length of a lens is determined by the lens's shape (geometry) and the
+        material of which it is made (described by the material's index of refraction,
+        $n$). The equation for this in ``geometric optics'' (things get more
+        complicated, but save that for college) is given by the {\bf lensmaker's
+        equation}:
+            $$\frac{1}{f} = (n - 1)\left[ \frac{1}{R_1} + \frac{1}{R_2} + \frac{(n - 1)d}{nR_1R_2} \right]$$
+        $f$ is the focal length, $n$ is the index of refraction of the lens's material, $R_1$ is the radius
+        of curvature of what we'll call the ``front'' surface of the lens, $R_2$ is the radius of curvature of the
+        ``back'' surface of the lens, and $d$ is the thickness of the lens.
+
+        In the case that the thickness of the lens $d$ is ``very small'' compared to
+        the radii of curvature, then $d/(R_1R_2)$ is going to be very small compared to
+        either $1/R_1$ or $1/R_2$, and the
+        above equation looks like
+            $$\frac{1}{f} = (n - 1)\left[ \frac{1}{R_1} + \frac{1}{R_2} + {\rm relatively\;tiny\;number} \right]$$
+        and so you can get relatively accurate results by dropping the last term.
+        This gives you what's called the {\bf thin lens equation}:
+            $$\frac{1}{f} \approx (n - 1)\left[ \frac{1}{R_1} + \frac{1}{R_2} \right]$$
+        where $\approx$ means ``approximately equal to,'' but for simplicity you can just
+        use the equals sign ($=$) from here on out.
+            $$\frac{1}{f} = (n - 1)\left[ \frac{1}{R_1} + \frac{1}{R_2} \right]$$
+
+        Now you have a simple equation you can work with. You'll note that the
+        equation is written in terms of $\frac{1}{f}$ (called the ``reciprocal of $f$'')
+        rather than $f$ probably because it's easier to see how to isolate $R_1$ and
+        $R_2$ in this form than if you were to solve for $f$ (and reduce/simplify the
+        resulting equation).
+
+        Sometimes writing an equation in terms of the reciprocal (or some other
+        expression) of the variable you ``care about'' makes it easier to work with than
+        fully solving for the variable. When to leave an equation in one form not
+        fully-solved for a variable depends on the situation, and you will get a better
+        sense of when that's appropriate as you work more with equations.
+
+        Anyway, there's still value in solving for $f$; do so, and also solve in terms
+        of each of the following. Try to reduce the expressions as much as possible,
+        e.g. using how you simplifieid the expression in Problem 3.
+        
+        \begin{enumerate}
+          \item $f$
+          \item $1/R_1$
+          \item $R_1$
+          \item $1/R_2$
+          \item $R_2$
+          \item $n$
+        \end{enumerate}
+
+        {\it Hint:} In solving for the reciprocal of $R_1$ (and likewise for the
+        reciprocal of $R_2$), it may help to substitute a new letter for the reciprocal
+        and work with that, just like you did for $x^2$ in Problem 1 (e.g., define $a_1
+        \equiv 1/R_1$, solve for $a_1$, then substitute $1/R_1$ back in when you're
+        done).
+
+        Some following questions will involve working more with the thin lens equation, so
+        keep your solutions around for those questions.
+
+\end{enumerate}
+
+\end{document}
