@@ -5,8 +5,9 @@ using namespace std;
 /*
  * "Virtual Function":
  *
- *		which version of an overriden function gets called is determined at
- *		runtime; example of "dynamic polymorphism."
+ *		which version of an overriden function gets called
+ *		is determined at runtime; example of "dynamic
+ *		polymorphism."
  *
  * "Polymorphic Types":
  *
@@ -16,10 +17,17 @@ using namespace std;
 class prior
 {
 	public:
-		prior() : type("none"), str_info("") {}
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		// As soon as you add a virtual function, need a
+		// virtual destructor (to look up all the things
+		// that need destroying)
+		virtual ~prior() {}
 
-		// which llh function is called by 'chi2' will be determined at runtime
+		prior() : type("none"), str_info("") {}
+		void info() { cout << "prior : " << type << " ; "
+			<< str_info << endl; }
+
+		// which llh function is called by 'chi2' will be
+		// determined at runtime
 		// via "vtables"
 
 		virtual double llh(double x) { return 0; }
@@ -39,8 +47,10 @@ class uniform
 			type = "uniform";
 			str_info = "offset = " + to_string(offset);
 		}
+		virtual ~uniform() {}
 
-		// not necessary to include 'virtual' here, but do anyway for clarity
+		// not necessary to include 'virtual' here, but do
+		// anyway for clarity
 
 		virtual double llh(double x) { return offset; }
 

@@ -8,7 +8,8 @@ class prior
 	public:
 		prior(const string &type, const string &str_info)
 			: type(type), str_info(str_info) {}
-		void info() { cout << "prior : " << type << " ; " << str_info << endl; }
+		void info() { cout << "prior : " << type << " ; "
+			<< str_info << endl; }
 		double chi2(double x) { return -2*llh(x); }
 		virtual double llh(double) = 0;
 
@@ -32,7 +33,8 @@ class uniform
 	public:
 		uniform(double offset)
 			: offset(offset),
-			prior("uniform", "offset = " + to_string(offset)) {}
+			prior("uniform", "offset = " +
+					to_string(offset)) {}
 		virtual double llh(double x) { return offset; }
 		double get_offset() { return offset; }
 		void set_offset(double y) { offset = y; }
@@ -63,10 +65,13 @@ class offset_gaussian
 	: public gaussian, public uniform
 {
 	public:
-		// NOTE: can't initialize 'prior' base since it isn't a parent
-		offset_gaussian(double ofst, double mu, double sigma)
+		// NOTE: can't initialize 'prior' base since it
+		// isn't a parent
+		offset_gaussian(double ofst, double mu, double
+				sigma)
 			: uniform(ofst), gaussian(mu, sigma) {}
-		virtual double llh(double x) { return uniform::llh(x) + gaussian::llh(x); }
+		virtual double llh(double x) { return
+			uniform::llh(x) + gaussian::llh(x); }
 };
 
 
